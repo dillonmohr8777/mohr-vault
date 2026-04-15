@@ -5,6 +5,29 @@
 
 ---
 
+## 2026-04-15 - Vault integrity sync (consolidation pass)
+
+**Summary of vault changes**
+- Consolidated duplicate folder structure per canonical numbered convention. The previous run created `/vault/Reports/` and `/vault/SEO/` as unnumbered top-level folders; this run removed them because numbered equivalents are the source of truth and the system rules forbid maintaining parallel unnumbered alternatives.
+- `git mv vault/Reports/system-insights.md vault/11_Agents/system-insights.md` - insights now live with the rest of the agent files (matches the rule "memory and agent files -> /vault/11_Agents").
+- Removed empty `/vault/Reports/.gitkeep` and `/vault/SEO/.gitkeep`; both directories now gone.
+- Re-ran insight generation: refreshed `/vault/11_Agents/system-insights.md` against current vault state.
+- Verified client substructure (`Ads/`, `Reports/`, `SEO/`) is intact for all 12 client folders in `01_Clients/`.
+- No file moves needed in `00_Inbox/` (empty) or elsewhere; no duplicates detected this run.
+
+**Notable insights**
+- The vault folder roster (12 clients) is significantly out of sync with `00_Memory_File.md`, which documents ~25 active engagements. The 14 missing clients are listed in `system-insights.md`. Not auto-created this run - that is a non-trivial change and should be confirmed.
+- Buzz Bull and Florecita are still missing `Agent Memory.md` and `Reporting Log.md`, carried over from the previous run. Not backfilled this run to keep the change set minimal and reversible.
+- The unnumbered `Reports/` and `SEO/` folders should not be re-created. Insight files belong in `11_Agents/`. If a true numbered Reports folder is wanted, it should be added as `12_Reports/` (or similar) rather than reintroducing the unnumbered variant.
+
+**Detected issues**
+- Master client roster drift between `00_Memory_File.md` and `01_Clients/` (14 clients undocumented in folder structure).
+- Per-client `SEO/` subfolders remain empty across the board.
+- Daily notes folder `07_Daily_Notes/` still empty.
+- No Google Ads SOPs in `04_SOPs/` despite Google Ads running across 8 of the 12 client folders.
+
+---
+
 ## 2026-04-15 - Vault integrity sync
 
 **Summary of vault changes**
