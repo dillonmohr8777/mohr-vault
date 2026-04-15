@@ -5,6 +5,24 @@
 
 ---
 
+## 2026-04-15 - Vault integrity sync (run 2)
+
+**Summary of vault changes**
+- Consolidated the unnumbered duplicate folders created by the prior run: `git mv vault/Reports/system-insights.md vault/11_Agents/system-insights.md`, then `git rm` on both `.gitkeep` files to retire `/vault/Reports/` and `/vault/SEO/`. The numbered scheme (`00_Inbox` .. `11_Agents`, `_templates`) is now the sole structural convention.
+- Backfilled `Agent Memory.md` and `Reporting Log.md` for Buzz Bull and Florecita using the section layout already in use by the other 10 clients. All 12 clients are now uniform.
+- Refreshed `11_Agents/system-insights.md` with current trends, gaps, and opportunities (and removed references to the retired `/vault/Reports/` and `/vault/SEO/` paths).
+- Inbox (`00_Inbox/`) was empty; no files to triage this run.
+
+**Notable insights**
+- The prior run's decision to create `/vault/Reports/` and `/vault/SEO/` conflicted with the canonical numbered structure. Treat the numbered folders as authoritative going forward - if a top-level "SEO" or "Reports" aggregation is ever needed, add it as `12_SEO` / `12_Reports` rather than an unnumbered sibling.
+- Client substructure is fully enforced (Ads/, SEO/, Reports/ on all 12 clients) and all standard client files now exist. Remaining client drift is at the file level (mixed placement of Facebook Ads strategy notes for 4 of 12 clients), not the folder level.
+- `07_Daily_Notes/` remains empty - flagged again in insights as a workflow gap.
+
+**Detected issues**
+- None critical. The only unresolved inconsistency is the mixed placement of Facebook Ads strategy notes (root files vs. folded into `Agent Memory.md`) - logged as an opportunity in `system-insights.md`, not auto-fixed because it requires a product decision.
+
+---
+
 ## 2026-04-15 - Vault integrity sync
 
 **Summary of vault changes**
