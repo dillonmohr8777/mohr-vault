@@ -5,6 +5,28 @@
 
 ---
 
+## 2026-04-23 - Vault integrity sync (run 3)
+
+**Summary of vault changes**
+- Full structure validation passed. All 13 canonical numbered folders (`00_Inbox` through `11_Agents` + `_templates`) present. No unnumbered duplicates.
+- Client structure enforcement passed. All 12 vault clients have uniform `Ads/`, `SEO/`, `Reports/` subfolders and `Agent Memory.md` + `Reporting Log.md`. No drift since run 2.
+- No duplicate or near-duplicate files detected. No empty markdown files. No misplaced files.
+- `00_Inbox/` empty — nothing to triage.
+- Refreshed `11_Agents/system-insights.md` with date-stamped analysis.
+
+**Notable insights**
+- **New critical gap identified: client roster mismatch.** The master `00_Memory_File.md` documents ~26 client/entity relationships across three categories (Momentum 360, 1099/Freelance, Direct), but only 12 of those have vault folders under `01_Clients/`. 14 active clients have no vault presence — no agent memory, no reporting log, no campaign tracking. This is the largest organizational gap in the vault.
+- The Meadow Creek Marketing cluster (8 sub-clients: PNW ProClean, Bend Plastic Surgery, Bend Oral Surgery, RamAir, Guarantee Cleaning, Oregon Biohazard, PureClean Carpets, Bluegrass Janitorial) is documented in the memory file but entirely absent from the vault structure. These may warrant a grouping convention (e.g. parent folder or tag).
+- Align HCM (W2) is listed under clients in the memory file but would logically belong in `06_Personal/` rather than `01_Clients/`.
+- All per-client `SEO/` and `Reports/` subfolders remain empty. The infrastructure exists but no data has been populated since the subfolders were created in run 1.
+- `05_Offers/`, `06_Personal/`, `08_Assets/`, `09_Transcripts/` all contain only `.gitkeep` — either these workflows haven't been activated or data is being captured outside the vault.
+
+**Detected issues**
+- 14 clients from `00_Memory_File.md` have no corresponding `01_Clients/` folders (listed in `system-insights.md`). Not auto-created because it requires a decision on which are still active and how to handle the Meadow Creek grouping.
+- No other structural or content issues found.
+
+---
+
 ## 2026-04-15 - Vault integrity sync (run 2)
 
 **Summary of vault changes**
