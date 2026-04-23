@@ -1,0 +1,80 @@
+name: Gmail to Vault Digest
+
+# Runs daily at 11:00 UTC (07:00 ET during EDT, 06:00 ET during EST)
+# DISABLED until Gmail OAuth is wired up. workflow_dispatch only for now.
+# To enable scheduled runs: uncomment the schedule block once GMAIL_OAUTH_TOKEN secret is set.
+on:
+  # schedule:
+  #   - cron: '0 11 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout vault
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check Gmail secret
+        run: |
+          if [ -z "${{ secrets.GMAIL_OAUTH_TOKEN }}" ]; then
+            echo "GMAIL_OAUTH_TOKEN secret is not set. This routine cannot run until Gmail access is configured."
+            echo "To wire this up:"
+            echo "  1. Create a Google Cloud project with Gmail API enabled"
+            echo "  2. Generate an OAuth refresh token for your Gmail account"
+            echo "  3. Store it as repo secret GMAIL_OAUTH_TOKEN"
+            echo "  4. Uncomment the schedule: block in this workflow"
+            exit 1
+          fi
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run gmail-to-vault-digest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_OAUTH_TOKEN: ${{ secrets.GMAIL_OAUTH_TOKEN }}
+        working-directory: ./vault
+        run: |
+          ROUTINE=$(cat 11_Agents/gmail-to-vault-digest.md)
+          DATE=$(date -u +%Y-%m-%d)
+          claude -p --dangerously-skip-permissions "You are executing the routine defined below. Follow its Steps exactly.
+
+          Today's date (UTC): $DATE
+
+          Gmail access: the GMAIL_OAUTH_TOKEN env var contains an OAuth refresh token for the user's Gmail. Use it to call the Gmail API directly via curl or fetch; do not prompt for credentials.
+
+          Tracked contacts (from System/m360-leadership-notes.md + client overviews): see those files.
+
+          Write urgent-replies to System/urgent-replies.md (full rewrite). Append one-line intel notes to client overviews when new inbound exists.
+
+          ---
+
+          $ROUTINE
+
+          ---
+
+          Execute now. CWD is the vault root."
+
+      - name: Commit changes
+        run: |
+          git config user.name "claude-routine-bot"
+          git config user.email "claude-routine-bot@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes from gmail-to-vault-digest"
+          else
+            git commit -m "gmail-to-vault-digest: $(date -u +%Y-%m-%d)"
+            git push
+          fi

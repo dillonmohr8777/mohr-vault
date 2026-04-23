@@ -1,0 +1,66 @@
+name: Nightly Client Pulse
+
+# Runs daily at 02:00 UTC (22:00 ET during EDT, 21:00 ET during EST)
+# Produces tomorrow's priority brief.
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout vault
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run nightly-client-pulse
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_AVAILABLE: ${{ secrets.GMAIL_OAUTH_TOKEN != '' }}
+        working-directory: ./vault
+        run: |
+          ROUTINE=$(cat 11_Agents/nightly-client-pulse.md)
+          DATE=$(date -u +%Y-%m-%d)
+          claude -p --dangerously-skip-permissions "You are executing the routine defined below. Follow its Steps exactly.
+
+          Today's date (UTC): $DATE
+          Gmail available this run: $GMAIL_AVAILABLE
+
+          If Gmail is not available, skip step 5 (Gmail scan) and add a note at the bottom of the output file: 'Gmail not configured in CI. Inbox-based fires not included.'
+
+          Write the pulse to Daily-Briefs/pulse-today.md, fully rewriting the file (this is today's snapshot).
+
+          ---
+
+          $ROUTINE
+
+          ---
+
+          Execute now. CWD is the vault root."
+
+      - name: Commit changes
+        run: |
+          git config user.name "claude-routine-bot"
+          git config user.email "claude-routine-bot@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes from nightly-client-pulse"
+          else
+            git commit -m "nightly-client-pulse: $(date -u +%Y-%m-%d)"
+            git push
+          fi
