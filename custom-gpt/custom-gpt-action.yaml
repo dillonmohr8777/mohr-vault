@@ -1,0 +1,223 @@
+openapi: 3.1.0
+info:
+  title: GitHub Bridge for Dillon OS
+  description: >
+    Read and write access to dillonmohr8777/mohr-vault and
+    dillonmohr8777/claude-skills-repo via the GitHub REST API. Auth is a
+    fine-scoped Personal Access Token configured in the Custom GPT's Action
+    auth settings (Authentication = API Key, Auth Type = Bearer, Custom Header
+    Name = Authorization, value = `Bearer ghp_xxx` or `Bearer github_pat_xxx`).
+  version: 1.0.0
+servers:
+  - url: https://api.github.com
+    description: GitHub REST API v3
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    FileContent:
+      type: object
+      properties:
+        type: { type: string }
+        encoding: { type: string }
+        size: { type: integer }
+        name: { type: string }
+        path: { type: string }
+        content: { type: string, description: "base64-encoded file content" }
+        sha: { type: string }
+        url: { type: string }
+        download_url: { type: string }
+paths:
+  /repos/{owner}/{repo}/contents/{path}:
+    get:
+      operationId: getRepoContents
+      summary: Read a file or list a directory
+      parameters:
+        - in: path
+          name: owner
+          required: true
+          schema: { type: string }
+        - in: path
+          name: repo
+          required: true
+          schema: { type: string }
+        - in: path
+          name: path
+          required: true
+          schema: { type: string }
+          description: "Path inside the repo. Use empty string for repo root."
+        - in: query
+          name: ref
+          schema: { type: string }
+          description: "Branch, tag, or SHA. Defaults to the default branch."
+      responses:
+        "200":
+          description: File or directory contents
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/FileContent"
+                  - type: array
+                    items: { $ref: "#/components/schemas/FileContent" }
+    put:
+      operationId: createOrUpdateFile
+      summary: Create or update a file
+      parameters:
+        - in: path
+          name: owner
+          required: true
+          schema: { type: string }
+        - in: path
+          name: repo
+          required: true
+          schema: { type: string }
+        - in: path
+          name: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message, content, branch]
+              properties:
+                message:
+                  type: string
+                  description: Commit message
+                content:
+                  type: string
+                  description: Base64-encoded file content
+                branch:
+                  type: string
+                  description: Branch name to commit to
+                sha:
+                  type: string
+                  description: "Required when updating an existing file. Get from getRepoContents."
+      responses:
+        "200": { description: File updated }
+        "201": { description: File created }
+  /search/code:
+    get:
+      operationId: searchCode
+      summary: Search code/files across the user's repos
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema: { type: string }
+          description: >
+            GitHub search syntax. Always scope with
+            `repo:dillonmohr8777/mohr-vault` or
+            `repo:dillonmohr8777/claude-skills-repo`. Optional `path:` and
+            `extension:` filters supported.
+        - in: query
+          name: per_page
+          schema: { type: integer, default: 30, maximum: 100 }
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+      responses:
+        "200": { description: Search results }
+  /repos/{owner}/{repo}/commits:
+    get:
+      operationId: listCommits
+      summary: List commits on a repo
+      parameters:
+        - in: path
+          name: owner
+          required: true
+          schema: { type: string }
+        - in: path
+          name: repo
+          required: true
+          schema: { type: string }
+        - in: query
+          name: path
+          schema: { type: string }
+        - in: query
+          name: sha
+          schema: { type: string }
+        - in: query
+          name: per_page
+          schema: { type: integer, default: 30, maximum: 100 }
+      responses:
+        "200": { description: Commit list }
+  /repos/{owner}/{repo}/branches:
+    get:
+      operationId: listBranches
+      summary: List branches in a repo
+      parameters:
+        - in: path
+          name: owner
+          required: true
+          schema: { type: string }
+        - in: path
+          name: repo
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Branch list }
+  /repos/{owner}/{repo}/git/refs:
+    post:
+      operationId: createRef
+      summary: Create a branch (git ref)
+      parameters:
+        - in: path
+          name: owner
+          required: true
+          schema: { type: string }
+        - in: path
+          name: repo
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ref, sha]
+              properties:
+                ref:
+                  type: string
+                  description: "Full ref name. Branch example: refs/heads/feature-x"
+                sha:
+                  type: string
+                  description: SHA the ref should point to (usually main's HEAD SHA)
+      responses:
+        "201": { description: Ref created }
+  /repos/{owner}/{repo}/pulls:
+    post:
+      operationId: createPullRequest
+      summary: Open a pull request
+      parameters:
+        - in: path
+          name: owner
+          required: true
+          schema: { type: string }
+        - in: path
+          name: repo
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, head, base]
+              properties:
+                title: { type: string }
+                head: { type: string, description: Source branch }
+                base: { type: string, description: Target branch (usually main) }
+                body: { type: string }
+                draft: { type: boolean, default: false }
+      responses:
+        "201": { description: PR created }
