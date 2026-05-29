@@ -88,3 +88,27 @@ If Hermes has the MailerLite API key, groups/subscribers/automations can be crea
 > live send** and before scheduling the **launch broadcast** (step 3). Report
 > back: groups created, automations live, A/B enabled, and a screenshot of each
 > email's mobile preview.
+
+## Kickoff prompt (paste into Hermes on the desktop)
+
+```text
+Task: Build the "Ironic Ineptocracy" lifecycle newsletter in my MailerLite account.
+
+Source of truth (read both first):
+- Runbook (do exactly this, steps 1–6): 04_SOPs/MailerLite - Ironic Ineptocracy Lifecycle (Hermes Runbook).md
+- Email copy (all 11 emails, A/B subjects, preview text, CTAs): 02_Campaigns/Ironic Ineptocracy - Lifecycle Newsletter.md
+
+Fill these in everywhere they appear:
+- {{PREORDER_URL}} = <PASTE PRE-ORDER URL>
+- {{RELEASE_DATE}} = <PASTE RELEASE DATE>
+- Excerpt for Email [6] = <PASTE 200–400 word excerpt, or tell me to pick one>
+
+Rules:
+- From-name = "Dillon Mohr". Verify the sending domain (SPF/DKIM) is authenticated BEFORE any send.
+- One CTA button per email to the pre-order URL, with the UTM tags from the runbook checklist.
+- Turn on A/B subject split for every automation email; fill preview text on all.
+- Build the skip-if-preordered condition (step 2.7) and set automation re-entry OFF.
+- STOP and confirm with me before the first live send and before scheduling the launch broadcast.
+
+Deliverable: groups + automations live (not sending yet), A/B enabled, and a mobile-preview screenshot of each email. Report what you built and anything you couldn't.
+```
