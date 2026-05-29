@@ -1,3 +1,12 @@
+---
+client: "Fresh Blends Replenish"
+type: client
+status: active
+last_touched: 2026-05-29
+next_action: "Review account + log this month's metrics"
+due: ""
+owner: dillon
+---
 # Agent Memory
 
 ## Brand Voice
