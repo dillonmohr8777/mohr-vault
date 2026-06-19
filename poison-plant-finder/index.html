@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poison Plant Finder — identify dangerous plants for free</title>
+  <meta name="description" content="A free field guide to poisonous plants. Identify dangerous plants by leaf veins, flower, sunlight, water and climate — with invasive status, safe-removal guidance and first-aid info." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="index">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="eyebrow">Free field guide · No account</span>
+        <h1>Know what you're<br><em>touching.</em></h1>
+        <p class="lede">
+          Thousands of common plants can burn your skin, blind you, or kill if eaten —
+          and most people have no idea what they look like. Identify a dangerous plant by
+          its leaf veins, flower, and growing conditions, then learn whether it's invasive,
+          whether to pull it, and exactly what to do if you're exposed.
+        </p>
+        <div class="hero__cta">
+          <a class="btn" href="identify.html">Identify by photo →</a>
+          <a class="btn btn--ghost" href="filter.html">Identify by traits</a>
+        </div>
+
+        <div class="legend" aria-label="Severity scale">
+          <span class="chip sev-1"><span class="sev-dot" style="background:var(--sev-1)"></span>1 Irritant</span>
+          <span class="chip sev-2"><span class="sev-dot" style="background:var(--sev-2)"></span>2 Harmful</span>
+          <span class="chip sev-3"><span class="sev-dot" style="background:var(--sev-3)"></span>3 Toxic</span>
+          <span class="chip sev-4"><span class="sev-dot" style="background:var(--sev-4)"></span>4 Severe</span>
+          <span class="chip sev-5"><span class="sev-dot" style="background:var(--sev-5)"></span>5 Deadly</span>
+        </div>
+      </div>
+
+      <div class="plate">
+        <canvas data-plant="giant-hogweed" aria-label="Botanical plate illustration"></canvas>
+        <div class="plate__tag">
+          <span>PLATE I · <span class="serif-italic">Heracleum mantegazzianum</span></span>
+          <span>SEV&nbsp;5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO WAYS TO IDENTIFY -->
+  <section class="section section--band">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">Two ways in</span>
+        <h2>Start with a photo, or with what you can see.</h2>
+        <p class="muted">No login, no cost. The trait filter works offline; the photo tool uses your own free Pl@ntNet key.</p>
+      </div>
+      <div class="methods">
+        <a class="method reveal" href="identify.html" style="text-decoration:none">
+          <span class="num">METHOD 01</span>
+          <h3>Identify by photo</h3>
+          <p>Upload a photo of leaves or flowers. We match it against the Pl@ntNet plant database and flag any result that's in our poison list — with the full danger profile one tap away.</p>
+          <span class="btn btn--ghost">Open photo ID →</span>
+        </a>
+        <a class="method reveal" href="filter.html" style="text-decoration:none">
+          <span class="num">METHOD 02</span>
+          <h3>Identify by traits</h3>
+          <p>No photo? Narrow it down by <b>vein pattern</b>, flower color, sunlight, water and climate — plus leaf shape and arrangement. The list filters live as you choose.</p>
+          <span class="btn btn--ghost">Open trait filter →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVASIVE / REMOVAL FOCUS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">Should you pull it?</span>
+        <h2>Some of these don't just need avoiding — they need removing.</h2>
+        <p class="lede">Invasive poisonous plants spread along trails, fences and pastures. Every profile tells you
+          whether to remove it, <b>how to do it safely</b>, and what never to do (hint: never burn poison ivy or hogweed).</p>
+      </div>
+      <div class="grid-plants" id="featured"></div>
+      <p class="center" style="margin-top:1.8rem">
+        <a class="btn" href="catalog.html">Browse all plants →</a>
+      </p>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/site.js"></script>
+  <script>
+    // featured: the most dangerous / most notorious, drawn as cards
+    document.addEventListener("DOMContentLoaded", () => {
+      const ids = ["poison-ivy", "giant-hogweed", "water-hemlock", "oleander", "manchineel", "monkshood"];
+      const byId = Object.fromEntries(PLANTS.map(p => [p.id, p]));
+      const host = document.getElementById("featured");
+      host.innerHTML = ids.map(id => {
+        const p = byId[id];
+        return `<a class="card reveal" href="plant.html?id=${p.id}">
+          <div class="card__plate"><canvas data-plant="${p.id}"></canvas>
+            <span class="card__sev">${sevBadge(p)}</span></div>
+          <div class="card__body">
+            <span class="card__common">${p.common}</span>
+            <span class="card__sci">${p.scientific}</span>
+            <div class="card__meta">${invasiveBadge(p)}${contactBadge(p)}</div>
+          </div></a>`;
+      }).join("");
+      renderPlates(); initReveal();
+    });
+  </script>
+</body>
+</html>

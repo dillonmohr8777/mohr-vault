@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Identify by photo — Poison Plant Finder</title>
+  <meta name="description" content="Upload a plant photo and check it against the poison database using your free Pl@ntNet API key." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="identify">
+  <section class="section">
+    <div class="wrap" style="max-width:820px">
+      <span class="eyebrow">Method 01 · Photo</span>
+      <h1 style="margin:.4rem 0 .6rem">Identify by photo</h1>
+      <p class="lede">Upload a clear photo of the leaves or flowers. We send it to the
+        <a href="https://plantnet.org" target="_blank" rel="noopener">Pl@ntNet</a> plant database, then check the
+        results against our poison list and flag anything dangerous.</p>
+
+      <!-- API key setup -->
+      <div class="panel" id="keyPanel" style="margin-top:1.5rem">
+        <h3>One-time setup · your free Pl@ntNet key</h3>
+        <p class="note">Keeping photo-ID free needs a free API key from Pl@ntNet (about 2 minutes,
+          ~500 IDs/day). Get one at
+          <a href="https://my.plantnet.org/" target="_blank" rel="noopener">my.plantnet.org</a> → account → settings.
+          It's stored only in this browser.</p>
+        <div class="keyrow">
+          <input class="field field--search" id="apiKey" type="password" placeholder="Paste your Pl@ntNet API key" autocomplete="off" />
+          <button class="btn" id="saveKey">Save key</button>
+          <button class="btn btn--ghost hidden" id="clearKey">Forget key</button>
+        </div>
+        <p class="note" id="keyStatus"></p>
+      </div>
+
+      <!-- uploader -->
+      <div class="dropzone" id="drop" role="button" tabindex="0" aria-label="Upload a plant photo">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#6E5438" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M7 9l5-5 5 5" /><path d="M12 4v12" />
+        </svg>
+        <p><strong>Drop a photo here</strong> or click to choose</p>
+        <p class="note">Leaves or flowers, well-lit, filling the frame. JPG or PNG.</p>
+        <input type="file" id="file" accept="image/*" class="hidden" />
+      </div>
+
+      <div class="keyrow" id="organRow">
+        <label class="note" for="organ">What's in the photo?</label>
+        <select class="field" id="organ">
+          <option value="auto">Auto-detect</option>
+          <option value="leaf">Leaf</option>
+          <option value="flower">Flower</option>
+          <option value="fruit">Fruit / berries</option>
+          <option value="bark">Bark</option>
+        </select>
+      </div>
+
+      <div class="preview hidden" id="preview">
+        <img id="previewImg" alt="Your uploaded plant photo" />
+        <div>
+          <button class="btn btn--block" id="identifyBtn">Identify this plant →</button>
+          <div id="status" class="stack" style="margin-top:1rem"></div>
+          <div class="results" id="results"></div>
+        </div>
+      </div>
+
+      <p class="note" style="margin-top:1.5rem">No photo, or want to be sure?
+        <a href="filter.html">Identify by traits instead →</a> Results name a likely species — always confirm
+        against the plant's profile and look-alikes before acting.</p>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/identify.js"></script>
+</body>
+</html>

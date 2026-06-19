@@ -1,0 +1,36 @@
+name: Deploy Poison Plant Finder
+
+# Publishes the static site in /poison-plant-finder to GitHub Pages for free.
+# After this runs once, enable Pages: repo Settings → Pages → Source: "GitHub Actions".
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "poison-plant-finder/**"
+      - ".github/workflows/deploy-poison-plant-finder.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: poison-plant-finder
+      - id: deployment
+        uses: actions/deploy-pages@v4

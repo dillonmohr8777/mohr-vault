@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Identify by traits — Poison Plant Finder</title>
+  <meta name="description" content="Narrow down a dangerous plant by leaf vein pattern, flower color, sunlight, water and climate." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="filter">
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Method 02 · No photo needed</span>
+      <h1 style="margin:.4rem 0 .6rem">Identify by traits</h1>
+      <p class="lede" style="margin-bottom:1.8rem">Pick what you can see on the plant. Start with the <b>vein pattern</b> —
+        it's the most reliable clue — then add flower color and where it's growing. Results filter as you go.</p>
+
+      <div class="filter-layout">
+        <form class="filter-panel" id="filters" aria-label="Plant trait filters">
+          <div class="filter-group" id="g-veins"><span class="lbl">Leaf veins</span></div>
+          <div class="filter-group" id="g-arrangement"><span class="lbl">Leaf arrangement</span></div>
+          <div class="filter-group" id="g-flowerColor"><span class="lbl">Flower color</span></div>
+          <div class="filter-group" id="g-sun"><span class="lbl">Sunlight</span></div>
+          <div class="filter-group" id="g-water"><span class="lbl">Water</span></div>
+          <div class="filter-group" id="g-extra">
+            <span class="lbl">Other clues</span>
+            <label class="opt"><input type="checkbox" id="x-touch" /> Hurts to touch</label>
+            <label class="opt"><input type="checkbox" id="x-invasive" /> Spreading / invasive</label>
+          </div>
+          <button type="button" class="btn btn--ghost btn--block filter-reset" id="reset">Reset filters</button>
+        </form>
+
+        <div>
+          <div class="toolbar" style="margin-top:0">
+            <strong id="summary" style="font-family:var(--display);font-size:1.3rem;color:var(--forest-deep)"></strong>
+            <span class="count" id="count"></span>
+          </div>
+          <div class="grid-plants" id="grid"></div>
+          <p class="center muted hidden" id="empty" style="margin-top:2rem">
+            Nothing matches every trait you picked. Try removing one — real plants vary, and a wrong guess on
+            one feature can hide the right plant. <a href="#" id="clear">Reset</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/filter.js"></script>
+</body>
+</html>

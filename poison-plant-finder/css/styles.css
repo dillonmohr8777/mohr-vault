@@ -1,0 +1,364 @@
+/* ============================================================================
+   POISON PLANT FINDER — design system
+   Aesthetic: a vintage botanical field guide / herbarium plate, overlaid with
+   a functional hazard-coding system. Earthy brand palette (khaki, forest
+   green, brown, off-white) carries the calm; a separate severity scale
+   (gold -> maroon) carries the danger so warnings always read.
+   ========================================================================== */
+
+:root {
+  /* Brand palette ----------------------------------------------------------*/
+  --ground:      #E2DAC4;  /* khaki / beige page background */
+  --ground-deep: #D6CBAE;  /* deeper khaki for bands */
+  --paper:       #FAF6EC;  /* off-white card / specimen sheet */
+  --paper-edge:  #ECE4D2;  /* card edge wash */
+  --ink:         #25301F;  /* deep forest-green ink (body text) */
+  --ink-soft:    #51604A;  /* muted green-gray */
+  --forest:      #3F5E45;  /* forest green accent */
+  --forest-deep: #2C4131;  /* deep forest */
+  --brown:       #6E5438;  /* bark brown */
+  --tan:         #B7A07C;  /* dried-grass tan (hairlines, captions) */
+
+  /* Hazard / severity scale (functional, kept distinct from brand) ---------*/
+  --sev-1: #B98A1E;  /* Irritant  — gold   */
+  --sev-2: #C0712B;  /* Harmful   — ochre  */
+  --sev-3: #B0512A;  /* Toxic     — rust   */
+  --sev-4: #9A2B26;  /* Severe    — red    */
+  --sev-5: #3C211D;  /* Deadly    — maroon-black */
+  --alarm:    #9A2B26;
+  --alarm-bg: #F3E3D6;
+
+  /* Type -------------------------------------------------------------------*/
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body:    "Public Sans", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Scale & shape ----------------------------------------------------------*/
+  --maxw: 1140px;
+  --radius: 4px;          /* field guides are crisp — minimal rounding */
+  --rule: 1px solid var(--tan);
+  --shadow: 0 1px 0 var(--paper-edge), 0 18px 40px -28px rgba(37,48,31,.5);
+  --space: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* Reset ------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition: none !important; }
+}
+
+body {
+  font-family: var(--body);
+  color: var(--ink);
+  background-color: var(--ground);
+  /* faint botanical "laid paper" texture from layered gradients */
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(63,94,69,.05), transparent 42%),
+    radial-gradient(circle at 84% 78%, rgba(110,84,56,.06), transparent 46%),
+    repeating-linear-gradient(0deg, rgba(110,84,56,.025) 0 1px, transparent 1px 26px);
+  line-height: 1.6;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--forest-deep); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--brown); }
+:focus-visible { outline: 3px solid var(--forest); outline-offset: 2px; border-radius: 2px; }
+
+/* Typography -------------------------------------------------------------- */
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; line-height: 1.05; color: var(--forest-deep); letter-spacing: -.01em; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.6rem); font-weight: 600; font-optical-sizing: auto; }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.5rem); }
+h3 { font-size: 1.25rem; color: var(--ink); }
+.serif-italic { font-family: var(--display); font-style: italic; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--brown);
+  display: inline-flex; align-items: center; gap: .55em;
+}
+.eyebrow::before { content: ""; width: 1.6em; height: 1px; background: var(--brown); display: inline-block; }
+
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--space); }
+.lede { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--ink-soft); max-width: 58ch; }
+
+/* ---- Site header -------------------------------------------------------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--rule);
+}
+.site-header .wrap { display: flex; align-items: center; gap: 1.5rem; padding-block: .8rem; }
+.brand { display: flex; align-items: center; gap: .6rem; font-family: var(--display); font-weight: 600; font-size: 1.2rem; color: var(--forest-deep); text-decoration: none; }
+.brand .mark { width: 30px; height: 30px; flex: none; }
+.nav { margin-left: auto; display: flex; gap: .3rem; flex-wrap: wrap; }
+.nav a {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .04em;
+  text-decoration: none; color: var(--ink-soft);
+  padding: .45rem .7rem; border-radius: var(--radius);
+}
+.nav a:hover, .nav a[aria-current="page"] { color: var(--forest-deep); background: var(--paper); }
+
+/* ---- Poison-control banner --------------------------------------------- */
+.pc-banner {
+  background: var(--forest-deep); color: #EDE7D5;
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .02em;
+  text-align: center; padding: .5rem 1rem;
+}
+.pc-banner strong { color: #fff; }
+.pc-banner a { color: #F1D8C2; }
+
+/* ---- Buttons ------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: .85rem; letter-spacing: .03em;
+  text-decoration: none; cursor: pointer;
+  padding: .8rem 1.2rem; border-radius: var(--radius);
+  border: 1px solid var(--forest-deep); background: var(--forest-deep); color: #F4EFE0;
+  transition: transform .15s ease, background .15s ease;
+}
+.btn:hover { background: var(--forest); transform: translateY(-1px); color: #fff; }
+.btn--ghost { background: transparent; color: var(--forest-deep); }
+.btn--ghost:hover { background: var(--paper); color: var(--forest-deep); }
+.btn--block { width: 100%; justify-content: center; }
+
+/* ---- Hero --------------------------------------------------------------- */
+.hero { padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(2rem, 5vw, 3.5rem); }
+.hero__grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.hero h1 { margin: .6rem 0 1.1rem; }
+.hero h1 em { font-style: italic; color: var(--brown); }
+.hero__cta { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.6rem; }
+
+/* hero specimen plate (canvas) */
+.plate {
+  position: relative; aspect-ratio: 4 / 5; background: var(--paper);
+  border: 1px solid var(--paper-edge); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden;
+}
+.plate canvas { width: 100%; height: 100%; display: block; }
+.plate__tag {
+  position: absolute; left: 14px; bottom: 14px; right: 14px;
+  font-family: var(--mono); font-size: .68rem; color: var(--ink-soft);
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  border: 1px solid var(--tan); border-radius: 3px; padding: .5rem .7rem;
+  display: flex; justify-content: space-between; gap: .5rem; backdrop-filter: blur(3px);
+}
+
+/* ---- Severity legend ---------------------------------------------------- */
+.legend { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.8rem; }
+.legend .chip { background: var(--paper); }
+.sev-dot { width: .85em; height: .85em; border-radius: 50%; display: inline-block; flex: none; }
+
+/* severity color helpers */
+.sev-1 { --sev: var(--sev-1); } .sev-2 { --sev: var(--sev-2); }
+.sev-3 { --sev: var(--sev-3); } .sev-4 { --sev: var(--sev-4); } .sev-5 { --sev: var(--sev-5); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: .45em;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .03em;
+  border: 1px solid var(--tan); border-radius: 100px; padding: .3rem .65rem;
+  color: var(--ink);
+}
+.badge-sev {
+  display: inline-flex; align-items: center; gap: .45em;
+  font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; color: #fff; background: var(--sev, var(--forest));
+  border-radius: 3px; padding: .25rem .55rem;
+}
+.badge-invasive {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .03em;
+  border: 1px dashed var(--brown); color: var(--brown);
+  border-radius: 3px; padding: .22rem .5rem;
+}
+.badge-contact {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .03em;
+  background: var(--alarm-bg); color: var(--alarm);
+  border-radius: 3px; padding: .22rem .5rem;
+}
+
+/* ---- Section scaffolding ------------------------------------------------ */
+.section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.section--band { background: var(--ground-deep); border-block: var(--rule); }
+.section__head { max-width: 60ch; margin-bottom: 2rem; }
+.section__head h2 { margin: .5rem 0 .6rem; }
+
+/* method cards (two ID paths on home) */
+.methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+.method {
+  background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius);
+  padding: 1.6rem; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .8rem;
+}
+.method .num { font-family: var(--mono); font-size: .72rem; letter-spacing: .15em; color: var(--brown); }
+.method h3 { font-family: var(--display); font-size: 1.5rem; color: var(--forest-deep); }
+.method p { color: var(--ink-soft); flex: 1; }
+
+/* ---- Plant catalog grid ------------------------------------------------- */
+.grid-plants { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.1rem; }
+.card {
+  position: relative; background: var(--paper); border: 1px solid var(--paper-edge);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  text-decoration: none; color: inherit; display: flex; flex-direction: column;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 1px 0 var(--paper-edge), 0 26px 50px -26px rgba(37,48,31,.55); }
+.card__plate { aspect-ratio: 5 / 4; position: relative; background: var(--ground); border-bottom: 1px solid var(--paper-edge); }
+.card__plate canvas { width: 100%; height: 100%; display: block; }
+.card__sev { position: absolute; top: .6rem; right: .6rem; }
+.card__body { padding: .9rem 1rem 1.1rem; display: flex; flex-direction: column; gap: .35rem; }
+.card__common { font-family: var(--display); font-size: 1.25rem; color: var(--forest-deep); line-height: 1.1; }
+.card__sci { font-family: var(--display); font-style: italic; font-size: .9rem; color: var(--ink-soft); }
+.card__meta { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .4rem; }
+
+/* ---- Toolbar (search / filter rows) ------------------------------------ */
+.toolbar { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.6rem; }
+.field {
+  font-family: var(--body); font-size: .95rem; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--tan); border-radius: var(--radius);
+  padding: .65rem .85rem;
+}
+.field--search { flex: 1; min-width: 200px; }
+select.field { cursor: pointer; }
+.count { font-family: var(--mono); font-size: .78rem; color: var(--ink-soft); margin-left: auto; }
+
+/* ---- Trait filter page -------------------------------------------------- */
+.filter-layout { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; align-items: start; }
+.filter-panel {
+  background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius);
+  padding: 1.3rem; box-shadow: var(--shadow); position: sticky; top: 90px;
+}
+.filter-group { padding-block: 1rem; border-bottom: 1px dashed var(--tan); }
+.filter-group:last-child { border-bottom: 0; }
+.filter-group > legend, .filter-group > .lbl {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--brown); margin-bottom: .6rem; padding: 0; display: block;
+}
+.opt { display: flex; align-items: center; gap: .55rem; padding: .25rem 0; cursor: pointer; font-size: .92rem; }
+.opt input { width: 1.05rem; height: 1.05rem; accent-color: var(--forest); cursor: pointer; }
+.filter-reset { margin-top: 1rem; }
+
+/* ---- Plant detail (herbarium specimen sheet) --------------------------- */
+.specimen { display: grid; grid-template-columns: 1fr 1.25fr; gap: 2.2rem; align-items: start; }
+.specimen__plate {
+  position: sticky; top: 90px; background: var(--paper);
+  border: 1px solid var(--paper-edge); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden;
+}
+.specimen__plate canvas { width: 100%; height: auto; display: block; aspect-ratio: 4/5; }
+.specimen__taxon {
+  font-family: var(--mono); font-size: .72rem; color: var(--ink-soft);
+  border-top: 1px solid var(--paper-edge); padding: .8rem 1rem; display: grid; gap: .25rem;
+}
+.specimen__taxon b { color: var(--ink); }
+
+.detail-head h1 { margin-bottom: .2rem; }
+.detail-sci { font-family: var(--display); font-style: italic; font-size: 1.2rem; color: var(--ink-soft); }
+.detail-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 1.4rem; }
+
+.panel {
+  background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius);
+  padding: 1.3rem 1.4rem; margin-bottom: 1.1rem;
+}
+.panel h3 { font-family: var(--mono); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--brown); margin-bottom: .8rem; }
+.panel p { margin-bottom: .7rem; }
+.panel p:last-child { margin-bottom: 0; }
+
+/* removal / "should you pull it?" callout */
+.callout-remove {
+  border: 2px solid var(--brown); background: #F4ECDD; border-radius: var(--radius);
+  padding: 1.3rem 1.4rem; margin-bottom: 1.1rem;
+}
+.callout-remove .verdict { font-family: var(--display); font-size: 1.4rem; color: var(--forest-deep); display: flex; align-items: center; gap: .5rem; margin-bottom: .7rem; }
+.callout-remove.do-remove { border-color: var(--alarm); background: var(--alarm-bg); }
+.callout-remove.do-remove .verdict { color: var(--alarm); }
+.callout-remove dl { display: grid; gap: .7rem; margin-top: .9rem; }
+.callout-remove dt { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--brown); }
+.callout-remove dd { margin: .15rem 0 0; }
+
+/* danger profile rows */
+.danger-grid { display: grid; gap: .1rem; }
+.danger-row { display: grid; grid-template-columns: 130px 1fr; gap: 1rem; padding: .8rem 0; border-bottom: 1px dashed var(--tan); }
+.danger-row:last-child { border-bottom: 0; }
+.danger-row .k { font-family: var(--mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--brown); padding-top: .15rem; }
+
+/* first-aid emphasis */
+.firstaid { border-left: 4px solid var(--forest); padding-left: 1rem; }
+.emergency-note {
+  font-family: var(--mono); font-size: .85rem; background: var(--alarm-bg); color: var(--alarm);
+  border-radius: var(--radius); padding: .9rem 1rem; margin-top: .8rem;
+}
+
+/* trait list on detail */
+.traitlist { display: grid; gap: .1rem; }
+.traitlist .row { display: grid; grid-template-columns: 150px 1fr; gap: 1rem; padding: .65rem 0; border-bottom: 1px dashed var(--tan); }
+.traitlist .row:last-child { border-bottom: 0; }
+.traitlist .row .k { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--brown); }
+
+/* ---- Identify (photo) page --------------------------------------------- */
+.dropzone {
+  border: 2px dashed var(--tan); border-radius: var(--radius); background: var(--paper);
+  padding: clamp(2rem, 6vw, 4rem); text-align: center; cursor: pointer; transition: border-color .15s, background .15s;
+}
+.dropzone:hover, .dropzone.drag { border-color: var(--forest); background: #F6F1E2; }
+.dropzone svg { margin: 0 auto 1rem; }
+.preview { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; align-items: start; margin-top: 1.5rem; }
+.preview img { border-radius: var(--radius); border: 1px solid var(--paper-edge); }
+.results { display: grid; gap: .8rem; margin-top: 1rem; }
+.result-row {
+  display: flex; align-items: center; gap: 1rem; background: var(--paper);
+  border: 1px solid var(--paper-edge); border-radius: var(--radius); padding: .8rem 1rem;
+  text-decoration: none; color: inherit;
+}
+.result-row .score { font-family: var(--mono); font-size: .8rem; color: var(--ink-soft); margin-left: auto; }
+.result-row.match { border-color: var(--alarm); background: var(--alarm-bg); }
+.keyrow { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; margin: 1rem 0; }
+.note { font-size: .9rem; color: var(--ink-soft); }
+.spinner { width: 22px; height: 22px; border: 3px solid var(--tan); border-top-color: var(--forest); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- Disclaimer / footer ----------------------------------------------- */
+.disclaimer {
+  background: var(--ground-deep); border-top: var(--rule);
+  font-size: .88rem; color: var(--ink-soft);
+}
+.disclaimer .wrap { padding-block: 1.6rem; }
+.disclaimer strong { color: var(--ink); }
+.site-footer { background: var(--forest-deep); color: #D8D2C0; padding-block: 2.5rem; font-size: .9rem; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; align-items: center; }
+.site-footer a { color: #F1D8C2; }
+.site-footer .mono { font-family: var(--mono); font-size: .76rem; letter-spacing: .03em; }
+
+/* utility */
+.stack > * + * { margin-top: 1rem; }
+.muted { color: var(--ink-soft); }
+.center { text-align: center; }
+.hidden { display: none !important; }
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ---- Responsive --------------------------------------------------------- */
+@media (max-width: 900px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .plate { max-width: 360px; }
+  .specimen { grid-template-columns: 1fr; }
+  .specimen__plate { position: static; max-width: 360px; }
+  .filter-layout { grid-template-columns: 1fr; }
+  .filter-panel { position: static; }
+  .preview { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .nav { display: none; }
+  .nav.open { display: flex; position: absolute; top: 100%; right: 0; left: 0; flex-direction: column; background: var(--ground); border-bottom: var(--rule); padding: .6rem var(--space); }
+  .danger-row, .traitlist .row { grid-template-columns: 1fr; gap: .2rem; }
+  .nav-toggle { display: inline-flex !important; }
+}
+.nav-toggle { display: none; margin-left: auto; background: var(--paper); border: 1px solid var(--tan); border-radius: var(--radius); padding: .5rem .7rem; cursor: pointer; font-family: var(--mono); font-size: .8rem; }
