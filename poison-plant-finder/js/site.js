@@ -30,6 +30,7 @@ function injectChrome() {
   const nav = [
     ["index.html", "Home"],
     ["identify.html", "Photo ID"],
+    ["wizard.html", "ID wizard"],
     ["filter.html", "By traits"],
     ["catalog.html", "All plants"],
   ];
@@ -50,6 +51,7 @@ function injectChrome() {
         <a class="brand" href="index.html">${LEAF_MARK}<span>Poison&nbsp;Plant&nbsp;Finder</span></a>
         <button class="nav-toggle" aria-label="Menu" aria-expanded="false">Menu</button>
         <nav class="nav">${navHTML}</nav>
+        <div class="acct" id="acctSlot"></div>
       </div>
     </header>`;
   document.body.prepend(header);
@@ -259,5 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
   injectChrome();
   initReveal();
   renderPlates();
+  // boot accounts + data layer if present on this page
+  if (window.Store && typeof window.mountAccount === "function") {
+    Store.init().then(() => window.mountAccount()).catch(() => window.mountAccount());
+  }
 });
 let _rt; window.addEventListener("resize", () => { clearTimeout(_rt); _rt = setTimeout(renderPlates, 200); });

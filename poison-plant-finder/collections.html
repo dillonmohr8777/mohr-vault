@@ -3,18 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plant profile — Poison Plant Finder</title>
-  <meta name="description" content="Detailed poisonous-plant profile: identification, native range, invasive status, safe removal and first aid." />
+  <title>Collections — Poison Plant Finder</title>
+  <meta name="description" content="Your saved plants and custom lists." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body data-page="plant">
+<body data-page="collections">
   <section class="section">
     <div class="wrap">
-      <p style="margin-bottom:1.2rem"><a href="catalog.html" class="chip">← All plants</a></p>
-      <article id="plant"><p class="muted">Loading…</p></article>
+      <span class="eyebrow">Your field notebook</span>
+      <h1 style="margin:.4rem 0 .6rem">Collections</h1>
+      <p class="lede" style="margin-bottom:1.8rem">Saved plants and your own lists — like "My yard", "Trail by the creek",
+        or "To remove this weekend".</p>
+
+      <div id="favSection"></div>
+
+      <div class="toolbar" style="margin-top:2.5rem">
+        <strong style="font-family:var(--display);font-size:1.5rem;color:var(--forest-deep)">Your lists</strong>
+        <div class="newlist-inline">
+          <input class="field" id="newListName" placeholder="New list name" />
+          <button class="btn" id="createList">Create list</button>
+        </div>
+      </div>
+      <div id="lists"></div>
     </div>
   </section>
 
@@ -24,6 +37,6 @@
   <script src="js/store.js"></script>
   <script src="js/site.js"></script>
   <script src="js/auth-ui.js"></script>
-  <script src="js/plant.js"></script>
+  <script src="js/collections.js"></script>
 </body>
 </html>

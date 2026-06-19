@@ -39,6 +39,14 @@
           <div class="detail-badges">
             ${sevBadge(p)} ${invasiveBadge(p)} ${contactBadge(p)}
           </div>
+          <div class="user-actions" id="userActions">
+            <button class="action-btn" id="favBtn" aria-pressed="false"><span class="ic">♡</span> <span class="lbl">Save</span></button>
+            <div class="list-dd">
+              <button class="action-btn" id="listBtn" aria-haspopup="true" aria-expanded="false"><span class="ic">＋</span> Add to list</button>
+              <div class="list-pop" id="listPop" hidden></div>
+            </div>
+            <a class="action-btn" id="sightBtn" href="sightings.html?plant=${p.id}"><span class="ic">📍</span> Log a sighting</a>
+          </div>
         </div>
 
         <!-- SHOULD YOU REMOVE IT -->
@@ -88,6 +96,13 @@
           </div>
         </div>
 
+        <!-- YOUR NOTES -->
+        <div class="panel notebook">
+          <h3>Your notes</h3>
+          <textarea id="noteBox" class="notebox" placeholder="Private notes — where you've seen it, how you removed it, reminders for next season…"></textarea>
+          <span class="note save-status" id="noteStatus"></span>
+        </div>
+
         <!-- FIRST AID -->
         <div class="panel">
           <h3>If you're exposed — first aid</h3>
@@ -102,4 +117,77 @@
     </div>`;
 
   renderPlates(); initReveal();
+
+  /* ---- interactive notebook (favorite / lists / notes) ---------------- */
+  function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+
+  async function setupControls() {
+    await Store.init();
+    const favBtn = document.getElementById("favBtn");
+    const noteBox = document.getElementById("noteBox");
+    const noteStatus = document.getElementById("noteStatus");
+
+    // favorite
+    async function refreshFav() {
+      const favs = await Store.favorites.list();
+      const on = favs.includes(p.id);
+      favBtn.classList.toggle("on", on);
+      favBtn.setAttribute("aria-pressed", String(on));
+      favBtn.querySelector(".ic").textContent = on ? "♥" : "♡";
+      favBtn.querySelector(".lbl").textContent = on ? "Saved" : "Save";
+    }
+    favBtn.addEventListener("click", async () => {
+      const favs = await Store.favorites.list();
+      if (favs.includes(p.id)) await Store.favorites.remove(p.id); else await Store.favorites.add(p.id);
+      refreshFav();
+    });
+
+    // notes
+    async function loadNote() { noteBox.value = await Store.notes.get(p.id); }
+    const saveNote = debounce(async () => {
+      await Store.notes.set(p.id, noteBox.value.trim());
+      noteStatus.textContent = "Saved ✓";
+      setTimeout(() => { noteStatus.textContent = ""; }, 1500);
+    }, 600);
+    noteBox.addEventListener("input", () => { noteStatus.textContent = "Saving…"; saveNote(); });
+
+    // add to list
+    const listBtn = document.getElementById("listBtn"), listPop = document.getElementById("listPop");
+    async function renderLists() {
+      const cols = await Store.collections.list();
+      listPop.innerHTML =
+        (cols.length ? cols.map(c => `
+          <label class="list-opt"><input type="checkbox" data-col="${c.id}" ${c.items.includes(p.id) ? "checked" : ""}/> ${escapeHtml(c.name)}</label>`).join("")
+          : `<p class="note" style="padding:.3rem .2rem">No lists yet.</p>`) +
+        `<div class="list-new"><input class="field" id="newListName" placeholder="New list name" /><button class="btn" id="newListBtn">Create</button></div>`;
+      listPop.querySelectorAll("input[data-col]").forEach(cb => cb.addEventListener("change", async () => {
+        if (cb.checked) await Store.collections.addItem(cb.dataset.col, p.id);
+        else await Store.collections.removeItem(cb.dataset.col, p.id);
+      }));
+      document.getElementById("newListBtn").addEventListener("click", async () => {
+        const name = document.getElementById("newListName").value.trim();
+        if (!name) return;
+        const col = await Store.collections.create(name);
+        await Store.collections.addItem(col.id, p.id);
+        renderLists();
+      });
+    }
+    listBtn.addEventListener("click", async () => {
+      const open = listPop.hasAttribute("hidden");
+      if (open) await renderLists();
+      listPop.toggleAttribute("hidden", !open);
+      listBtn.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", (e) => {
+      if (!listPop.hasAttribute("hidden") && !e.target.closest(".list-dd")) {
+        listPop.setAttribute("hidden", ""); listBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    await Promise.all([refreshFav(), loadNote()]);
+    // re-sync when the user signs in/out
+    Store.onChange(() => { refreshFav(); loadNote(); });
+  }
+  function escapeHtml(s) { return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+  setupControls();
 })();

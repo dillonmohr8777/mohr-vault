@@ -374,6 +374,138 @@ select.field { cursor: pointer; }
 }
 .nav-toggle { display: none; margin-left: auto; background: var(--paper); border: 1px solid var(--tan); border-radius: var(--radius); padding: .5rem .7rem; cursor: pointer; font-family: var(--mono); font-size: .8rem; }
 
+/* ============================================================================
+   ACCOUNTS & SAVED-DATA UI
+   ========================================================================== */
+
+/* nav no longer auto-pushes; account sits at far right */
+.site-header .nav { margin-left: auto; }
+.acct { display: flex; align-items: center; }
+
+/* account menu */
+.acct-menu { position: relative; }
+.acct-btn { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; background: var(--paper); border: 1px solid var(--tan); border-radius: 100px; padding: .3rem .7rem .3rem .35rem; font-family: var(--mono); font-size: .8rem; color: var(--ink); }
+.acct-btn:hover { border-color: var(--forest); }
+.avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--forest-deep); color: #F4EFE0; display: grid; place-items: center; font-family: var(--display); font-size: .9rem; flex: none; }
+.avatar.guest { background: var(--tan); color: var(--forest-deep); }
+.acct-name { max-width: 9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-pop { position: absolute; right: 0; top: calc(100% + .5rem); background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius); box-shadow: var(--shadow); min-width: 200px; padding: .4rem; z-index: 60; display: flex; flex-direction: column; }
+.acct-pop a, .acct-pop button { text-align: left; background: none; border: 0; cursor: pointer; font: inherit; font-size: .9rem; color: var(--ink); text-decoration: none; padding: .55rem .7rem; border-radius: var(--radius); }
+.acct-pop a:hover, .acct-pop button:hover { background: var(--ground); }
+.acct-pop__label { font-family: var(--mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--brown); padding: .4rem .7rem .2rem; }
+
+/* guest banner */
+.guest-banner { background: var(--brown); color: #F4ECDD; font-size: .85rem; }
+.guest-banner .wrap { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; justify-content: space-between; padding-block: .6rem; }
+.guest-banner a { color: #fff; }
+.guest-banner__actions { display: flex; gap: .8rem; align-items: center; }
+.guest-banner button { background: rgba(255,255,255,.15); color: #fff; border: 0; border-radius: var(--radius); padding: .35rem .7rem; cursor: pointer; font-family: var(--mono); font-size: .72rem; }
+
+/* modal */
+.modal { position: fixed; inset: 0; z-index: 100; background: rgba(37,48,31,.55); display: grid; place-items: center; padding: 1rem; backdrop-filter: blur(3px); animation: fade .2s ease; }
+@keyframes fade { from { opacity: 0; } }
+.modal__card { position: relative; background: var(--paper); border-radius: var(--radius); border: 1px solid var(--paper-edge); box-shadow: 0 30px 70px -30px rgba(0,0,0,.6); width: 100%; max-width: 420px; padding: 1.8rem; max-height: 90vh; overflow: auto; }
+.modal__close { position: absolute; top: .6rem; right: .8rem; background: none; border: 0; font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--ink-soft); }
+.modal__close:hover { color: var(--alarm); }
+
+/* tabs */
+.tabs { display: flex; gap: .3rem; background: var(--ground); padding: .25rem; border-radius: var(--radius); }
+.tab { flex: 1; background: none; border: 0; cursor: pointer; font-family: var(--mono); font-size: .78rem; padding: .55rem; border-radius: 3px; color: var(--ink-soft); }
+.tab.active { background: var(--paper); color: var(--forest-deep); box-shadow: var(--shadow); }
+
+/* form fields */
+.field-label { display: block; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--brown); }
+.field--block { display: block; width: 100%; margin-top: .35rem; }
+.auth-error { color: var(--alarm); font-size: .85rem; background: var(--alarm-bg); border-radius: var(--radius); padding: .6rem .8rem; }
+.auth-error.info { color: var(--forest-deep); background: #E7EEDF; }
+
+/* plant detail: user actions */
+.user-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.2rem 0 .4rem; }
+.action-btn { display: inline-flex; align-items: center; gap: .45rem; cursor: pointer; background: var(--paper); border: 1px solid var(--tan); border-radius: 100px; padding: .55rem 1rem; font-family: var(--mono); font-size: .8rem; color: var(--ink); text-decoration: none; }
+.action-btn:hover { border-color: var(--forest); color: var(--forest-deep); }
+.action-btn .ic { font-size: 1.05rem; line-height: 1; }
+.action-btn.on { background: var(--alarm-bg); border-color: var(--alarm); color: var(--alarm); }
+.list-dd { position: relative; }
+.list-pop { position: absolute; top: calc(100% + .4rem); left: 0; z-index: 30; background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius); box-shadow: var(--shadow); padding: .6rem; min-width: 230px; }
+.list-opt { display: flex; align-items: center; gap: .5rem; padding: .35rem .2rem; font-size: .9rem; cursor: pointer; }
+.list-opt input { accent-color: var(--forest); }
+.list-new { display: flex; gap: .4rem; margin-top: .5rem; padding-top: .5rem; border-top: 1px dashed var(--tan); }
+.list-new .field { flex: 1; min-width: 0; padding: .45rem .6rem; }
+.list-new .btn { padding: .45rem .8rem; }
+
+/* notes box */
+.notebox { width: 100%; min-height: 92px; resize: vertical; font-family: var(--body); font-size: .95rem; color: var(--ink); background: var(--ground); border: 1px solid var(--tan); border-radius: var(--radius); padding: .7rem .85rem; }
+.save-status { display: inline-block; margin-top: .4rem; min-height: 1em; color: var(--forest); }
+
+/* ---- Wizard ---- */
+.wizard { background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(1.3rem, 4vw, 2.4rem); }
+.wizard__bar { height: 6px; background: var(--ground-deep); border-radius: 100px; overflow: hidden; }
+.wizard__progress { height: 100%; width: 0; background: var(--forest); transition: width .35s ease; }
+.wizard__count { font-family: var(--mono); font-size: .78rem; color: var(--ink-soft); margin: .8rem 0 1.4rem; }
+.wizard__count strong { color: var(--alarm); font-size: 1rem; }
+.step-no { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--brown); }
+.wizard__q h2 { margin: .4rem 0 .3rem; }
+.wizard__opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .7rem; margin: 1.3rem 0; }
+.wopt { text-align: left; cursor: pointer; background: var(--ground); border: 1px solid var(--tan); border-radius: var(--radius); padding: .9rem 1rem; transition: transform .12s ease, border-color .12s ease; display: flex; flex-direction: column; gap: .25rem; }
+.wopt:hover { transform: translateY(-2px); border-color: var(--forest); }
+.wopt.on { background: #E7EEDF; border-color: var(--forest); }
+.wopt__t { font-family: var(--display); font-size: 1.15rem; color: var(--forest-deep); }
+.wopt__h { font-size: .82rem; color: var(--ink-soft); }
+.wizard__nav { display: flex; justify-content: space-between; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.wizard__nav-right { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+/* ---- Sightings + map ---- */
+.sight-layout { display: grid; grid-template-columns: 340px 1fr; gap: 1.8rem; align-items: start; }
+.sight-form { position: sticky; top: 90px; display: flex; flex-direction: column; gap: .9rem; }
+.sight-form .field-label { display: flex; flex-direction: column; }
+.loc-row { display: flex; flex-direction: column; gap: .4rem; }
+.map { height: 420px; border-radius: var(--radius); border: 1px solid var(--paper-edge); box-shadow: var(--shadow); z-index: 0; }
+.sight-list { display: grid; gap: .8rem; }
+.sight-card { background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow); }
+.sight-card__head { display: flex; justify-content: space-between; gap: 1rem; align-items: start; }
+.sight-card__title { font-family: var(--display); font-size: 1.2rem; color: var(--forest-deep); }
+.sight-card__title a { text-decoration: none; color: inherit; }
+.sight-card__meta { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0; align-items: center; }
+.sight-card__notes { color: var(--ink-soft); font-size: .92rem; margin-bottom: .4rem; }
+.linkbtn { background: none; border: 0; cursor: pointer; font: inherit; font-size: .8rem; font-family: var(--mono); color: var(--forest-deep); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.linkbtn.danger { color: var(--alarm); }
+.chip.cat-to-remove { border-color: var(--alarm); color: var(--alarm); }
+.chip.cat-my-property { border-color: var(--forest); color: var(--forest-deep); }
+
+/* ---- Collections ---- */
+.collection { margin-bottom: 2.4rem; }
+.collection__head { display: flex; align-items: center; gap: .9rem; margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: var(--rule); }
+.collection__head h2 { font-size: 1.6rem; }
+.collection__name { outline: none; border-radius: 3px; }
+.collection__name:focus { background: #E7EEDF; box-shadow: 0 0 0 3px var(--forest); }
+.collection__head .count { margin-left: 0; }
+.collection__head .del-col { margin-left: auto; }
+.newlist-inline { display: flex; gap: .5rem; margin-left: auto; }
+.newlist-inline .field { padding: .5rem .7rem; }
+.has-remove { position: relative; }
+.card__remove { position: absolute; top: .5rem; left: .5rem; z-index: 5; background: rgba(250,246,236,.92); border: 1px solid var(--tan); border-radius: 100px; font-family: var(--mono); font-size: .7rem; padding: .25rem .6rem; cursor: pointer; color: var(--alarm); }
+.card__remove:hover { background: var(--alarm-bg); border-color: var(--alarm); }
+
+/* ---- Account dashboard ---- */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat { background: var(--paper); border: 1px solid var(--paper-edge); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.3rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: .2rem; transition: transform .15s ease; }
+.stat:hover { transform: translateY(-3px); }
+.stat__n { font-family: var(--display); font-size: 2.4rem; color: var(--forest-deep); line-height: 1; }
+.stat__k { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--brown); }
+.steps { margin: .6rem 0 1rem 1.1rem; display: grid; gap: .5rem; }
+.steps li { padding-left: .3rem; }
+.btn.danger, .btn--ghost.danger { border-color: var(--alarm); color: var(--alarm); }
+.btn.danger:hover, .btn--ghost.danger:hover { background: var(--alarm-bg); }
+
+@media (max-width: 900px) {
+  .sight-layout { grid-template-columns: 1fr; }
+  .sight-form { position: static; }
+}
+@media (max-width: 560px) {
+  .acct-name { display: none; }
+  .newlist-inline { width: 100%; }
+}
+
 </style>
 </head>
 <body data-page="index">
@@ -455,6 +587,25 @@ select.field { cursor: pointer; }
     </div>
   </section>
 
+  <script>
+/* ============================================================================
+   POISON PLANT FINDER — configuration
+   ----------------------------------------------------------------------------
+   To enable real accounts that sync across devices, create a free Supabase
+   project (supabase.com), then paste your project URL and anon/public key
+   below (Project Settings -> API). Until then the app runs in "guest mode"
+   and saves everything in this browser.
+
+   The anon key is safe to expose in front-end code — row-level security in
+   Supabase (see supabase-schema.sql) keeps each user's data private.
+   ============================================================================ */
+window.PPF_CONFIG = {
+  SUPABASE_URL: "",       // e.g. "https://abcdefgh.supabase.co"
+  SUPABASE_ANON_KEY: "",  // e.g. "eyJhbGciOiJI...."
+};
+
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
 /* ============================================================================
    POISON PLANT FINDER — plant database
@@ -1399,6 +1550,162 @@ if (typeof window !== "undefined") {
 </script>
   <script>
 /* ============================================================================
+   POISON PLANT FINDER — data layer (Store)
+   One async API for accounts + saved data, with two interchangeable backends:
+     • Cloud  — Supabase auth + Postgres (when config.js has URL + anon key)
+     • Guest  — localStorage on this device (works with zero setup)
+   Pages never talk to a backend directly; they call Store.* and get Promises.
+   ============================================================================ */
+const Store = (() => {
+  const cfg = window.PPF_CONFIG || {};
+  const hasCloud = !!(cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && window.supabase);
+  let sb = null;
+  if (hasCloud) {
+    sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  }
+
+  /* ---- auth state + simple event bus ----------------------------------- */
+  const listeners = new Set();
+  let user = null; // { id, email, name }
+  let initPromise = null;
+  function emit() { listeners.forEach(fn => { try { fn(user); } catch (e) {} }); }
+
+  /* ===================== GUEST (localStorage) backend ==================== */
+  const LS = {
+    key: (k) => `ppf_guest_${k}`,
+    read: (k, def) => { try { return JSON.parse(localStorage.getItem(LS.key(k))) ?? def; } catch { return def; } },
+    write: (k, v) => localStorage.setItem(LS.key(k), JSON.stringify(v)),
+  };
+
+  const guest = {
+    profile() {
+      let p = LS.read("profile", null);
+      if (!p) { p = { id: "guest", email: "", name: "Guest" }; LS.write("profile", p); }
+      return p;
+    },
+    setName(name) { const p = guest.profile(); p.name = name; LS.write("profile", p); user = p; emit(); },
+    favorites: {
+      async list() { return LS.read("favorites", []); },
+      async add(id) { const f = LS.read("favorites", []); if (!f.includes(id)) { f.push(id); LS.write("favorites", f); } },
+      async remove(id) { LS.write("favorites", LS.read("favorites", []).filter(x => x !== id)); },
+    },
+    notes: {
+      async get(id) { return (LS.read("notes", {})[id]) || ""; },
+      async set(id, body) { const n = LS.read("notes", {}); if (body) n[id] = body; else delete n[id]; LS.write("notes", n); },
+      async all() { return LS.read("notes", {}); },
+    },
+    collections: {
+      async list() { return LS.read("collections", []); },
+      async create(name) { const c = LS.read("collections", []); const item = { id: "c" + Date.now(), name, items: [] }; c.push(item); LS.write("collections", c); return item; },
+      async rename(id, name) { const c = LS.read("collections", []); const x = c.find(i => i.id === id); if (x) { x.name = name; LS.write("collections", c); } },
+      async remove(id) { LS.write("collections", LS.read("collections", []).filter(i => i.id !== id)); },
+      async addItem(id, plantId) { const c = LS.read("collections", []); const x = c.find(i => i.id === id); if (x && !x.items.includes(plantId)) { x.items.push(plantId); LS.write("collections", c); } },
+      async removeItem(id, plantId) { const c = LS.read("collections", []); const x = c.find(i => i.id === id); if (x) { x.items = x.items.filter(p => p !== plantId); LS.write("collections", c); } },
+    },
+    sightings: {
+      async list() { return LS.read("sightings", []).sort((a, b) => (b.seen_on || "").localeCompare(a.seen_on || "")); },
+      async add(s) { const arr = LS.read("sightings", []); const item = { id: "s" + Date.now(), ...s }; arr.push(item); LS.write("sightings", arr); return item; },
+      async remove(id) { LS.write("sightings", LS.read("sightings", []).filter(s => s.id !== id)); },
+    },
+  };
+
+  /* ===================== CLOUD (Supabase) backend ======================= */
+  const cloud = {
+    favorites: {
+      async list() { const { data } = await sb.from("favorites").select("plant_id"); return (data || []).map(r => r.plant_id); },
+      async add(id) { await sb.from("favorites").upsert({ user_id: user.id, plant_id: id }); },
+      async remove(id) { await sb.from("favorites").delete().eq("plant_id", id); },
+    },
+    notes: {
+      async get(id) { const { data } = await sb.from("notes").select("body").eq("plant_id", id).maybeSingle(); return data?.body || ""; },
+      async set(id, body) {
+        if (body) await sb.from("notes").upsert({ user_id: user.id, plant_id: id, body, updated_at: new Date().toISOString() });
+        else await sb.from("notes").delete().eq("plant_id", id);
+      },
+      async all() { const { data } = await sb.from("notes").select("plant_id, body"); const o = {}; (data || []).forEach(r => o[r.plant_id] = r.body); return o; },
+    },
+    collections: {
+      async list() {
+        const { data } = await sb.from("collections").select("id, name, collection_items(plant_id)").order("created_at");
+        return (data || []).map(c => ({ id: c.id, name: c.name, items: (c.collection_items || []).map(i => i.plant_id) }));
+      },
+      async create(name) { const { data } = await sb.from("collections").insert({ user_id: user.id, name }).select().single(); return { id: data.id, name: data.name, items: [] }; },
+      async rename(id, name) { await sb.from("collections").update({ name }).eq("id", id); },
+      async remove(id) { await sb.from("collections").delete().eq("id", id); },
+      async addItem(id, plantId) { await sb.from("collection_items").upsert({ collection_id: id, plant_id: plantId }); },
+      async removeItem(id, plantId) { await sb.from("collection_items").delete().eq("collection_id", id).eq("plant_id", plantId); },
+    },
+    sightings: {
+      async list() { const { data } = await sb.from("sightings").select("*").order("seen_on", { ascending: false }); return data || []; },
+      async add(s) { const { data } = await sb.from("sightings").insert({ user_id: user.id, ...s }).select().single(); return data; },
+      async remove(id) { await sb.from("sightings").delete().eq("id", id); },
+    },
+  };
+
+  const backend = hasCloud ? cloud : guest;
+
+  /* ===================== public API ===================================== */
+  return {
+    isCloud: () => hasCloud,
+    user: () => user,
+    onChange(fn) { listeners.add(fn); return () => listeners.delete(fn); },
+
+    init() {
+      if (initPromise) return initPromise;
+      initPromise = (async () => {
+        if (hasCloud) {
+          const { data } = await sb.auth.getSession();
+          applySession(data.session);
+          sb.auth.onAuthStateChange((_e, session) => applySession(session));
+        } else {
+          user = guest.profile(); emit();
+        }
+        return user;
+      })();
+      return initPromise;
+    },
+
+    auth: {
+      async signUp(email, password, name) {
+        if (!hasCloud) { guest.setName(name || email || "Guest"); return { ok: true, guest: true }; }
+        const { data, error } = await sb.auth.signUp({ email, password, options: { data: { name } } });
+        if (error) throw error;
+        return { ok: true, needsConfirm: !data.session };
+      },
+      async signIn(email, password) {
+        if (!hasCloud) { guest.setName(email || "Guest"); return { ok: true, guest: true }; }
+        const { error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        return { ok: true };
+      },
+      async signOut() {
+        if (hasCloud) await sb.auth.signOut();
+        else { user = guest.profile(); emit(); }
+      },
+    },
+
+    favorites: backend.favorites,
+    notes: backend.notes,
+    collections: backend.collections,
+    sightings: backend.sightings,
+  };
+
+  function applySession(session) {
+    if (session?.user) {
+      const u = session.user;
+      user = { id: u.id, email: u.email, name: u.user_metadata?.name || u.email };
+    } else {
+      user = null;
+    }
+    emit();
+  }
+})();
+
+window.Store = Store;
+
+</script>
+  <script>
+/* ============================================================================
    POISON PLANT FINDER — shared site behavior
    - injects header, poison-control banner, disclaimer + footer
    - draws procedural botanical "plates" on <canvas> so every plant has a
@@ -1430,6 +1737,7 @@ function injectChrome() {
   const nav = [
     ["index.html", "Home"],
     ["identify.html", "Photo ID"],
+    ["wizard.html", "ID wizard"],
     ["filter.html", "By traits"],
     ["catalog.html", "All plants"],
   ];
@@ -1450,6 +1758,7 @@ function injectChrome() {
         <a class="brand" href="index.html">${LEAF_MARK}<span>Poison&nbsp;Plant&nbsp;Finder</span></a>
         <button class="nav-toggle" aria-label="Menu" aria-expanded="false">Menu</button>
         <nav class="nav">${navHTML}</nav>
+        <div class="acct" id="acctSlot"></div>
       </div>
     </header>`;
   document.body.prepend(header);
@@ -1659,8 +1968,217 @@ document.addEventListener("DOMContentLoaded", () => {
   injectChrome();
   initReveal();
   renderPlates();
+  // boot accounts + data layer if present on this page
+  if (window.Store && typeof window.mountAccount === "function") {
+    Store.init().then(() => window.mountAccount()).catch(() => window.mountAccount());
+  }
 });
 let _rt; window.addEventListener("resize", () => { clearTimeout(_rt); _rt = setTimeout(renderPlates, 200); });
+
+</script>
+  <script>
+/* ============================================================================
+   POISON PLANT FINDER — account UI
+   Renders the header account control + a sign-in / create-account modal, and
+   reflects auth state. Works in cloud mode (real Supabase auth) and guest mode
+   (set a display name; data saved on this device).
+   ============================================================================ */
+(function () {
+  let acctSlot;
+
+  function initials(name) { return (name || "?").trim().slice(0, 1).toUpperCase(); }
+
+  function renderAccount(user) {
+    if (!acctSlot) return;
+    if (user && (Store.isCloud() ? true : false)) {
+      // signed-in cloud user
+      acctSlot.innerHTML = `
+        <div class="acct-menu">
+          <button class="acct-btn" id="acctBtn" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar">${initials(user.name)}</span><span class="acct-name">${user.name || user.email}</span>
+          </button>
+          <div class="acct-pop" id="acctPop" hidden>
+            <a href="account.html">Your dashboard</a>
+            <a href="collections.html">Collections</a>
+            <a href="sightings.html">Sightings</a>
+            <button id="signOutBtn">Sign out</button>
+          </div>
+        </div>`;
+      $("#acctBtn").addEventListener("click", togglePop);
+      $("#signOutBtn").addEventListener("click", async () => { await Store.auth.signOut(); });
+    } else if (!Store.isCloud()) {
+      // guest mode
+      acctSlot.innerHTML = `
+        <div class="acct-menu">
+          <button class="acct-btn" id="acctBtn" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar guest">${initials(user && user.name)}</span><span class="acct-name">${(user && user.name) || "Guest"}</span>
+          </button>
+          <div class="acct-pop" id="acctPop" hidden>
+            <span class="acct-pop__label">Guest — saved on this device</span>
+            <a href="account.html">Your dashboard</a>
+            <a href="collections.html">Collections</a>
+            <a href="sightings.html">Sightings</a>
+            <button id="setNameBtn">Set display name</button>
+          </div>
+        </div>`;
+      $("#acctBtn").addEventListener("click", togglePop);
+      $("#setNameBtn").addEventListener("click", () => openModal("guest"));
+    } else {
+      // cloud configured but signed out
+      acctSlot.innerHTML = `<button class="btn btn--ghost acct-signin" id="signInBtn">Sign in</button>`;
+      $("#signInBtn").addEventListener("click", () => openModal("signin"));
+    }
+  }
+
+  function togglePop() {
+    const pop = $("#acctPop"), btn = $("#acctBtn");
+    const open = pop.hasAttribute("hidden");
+    pop.toggleAttribute("hidden", !open);
+    btn.setAttribute("aria-expanded", String(open));
+  }
+  document.addEventListener("click", (e) => {
+    const pop = document.getElementById("acctPop");
+    if (pop && !pop.hasAttribute("hidden") && !e.target.closest(".acct-menu")) {
+      pop.setAttribute("hidden", ""); document.getElementById("acctBtn")?.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  /* ---- modal ----------------------------------------------------------- */
+  function openModal(mode) {
+    closeModal();
+    const cloud = Store.isCloud();
+    const wrap = document.createElement("div");
+    wrap.className = "modal"; wrap.id = "authModal";
+    wrap.innerHTML = `
+      <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <button class="modal__close" aria-label="Close" id="mClose">×</button>
+        ${cloud ? cloudForm(mode) : guestForm()}
+      </div>`;
+    document.body.appendChild(wrap);
+    wrap.addEventListener("click", (e) => { if (e.target === wrap) closeModal(); });
+    $("#mClose").addEventListener("click", closeModal);
+    document.addEventListener("keydown", escClose);
+
+    if (cloud) {
+      $$("#authModal [data-tab]").forEach(t => t.addEventListener("click", () => switchTab(t.dataset.tab)));
+      $("#authForm").addEventListener("submit", submitCloud);
+      switchTab(mode === "signup" ? "signup" : "signin");
+    } else {
+      $("#guestForm").addEventListener("submit", submitGuest);
+      setTimeout(() => $("#gName")?.focus(), 30);
+    }
+  }
+  function escClose(e) { if (e.key === "Escape") closeModal(); }
+  function closeModal() { const m = document.getElementById("authModal"); if (m) m.remove(); document.removeEventListener("keydown", escClose); }
+
+  function cloudForm() {
+    return `
+      <span class="eyebrow">Your field notebook</span>
+      <h2 id="authTitle" style="margin:.4rem 0 1rem">Welcome back</h2>
+      <div class="tabs">
+        <button data-tab="signin" class="tab">Sign in</button>
+        <button data-tab="signup" class="tab">Create account</button>
+      </div>
+      <form id="authForm" class="stack" style="margin-top:1rem">
+        <label class="field-label" id="nameRow" hidden>Name
+          <input class="field field--block" type="text" id="aName" autocomplete="name" placeholder="What should we call you?" />
+        </label>
+        <label class="field-label">Email
+          <input class="field field--block" type="email" id="aEmail" autocomplete="email" required placeholder="you@example.com" />
+        </label>
+        <label class="field-label">Password
+          <input class="field field--block" type="password" id="aPass" autocomplete="current-password" required minlength="6" placeholder="At least 6 characters" />
+        </label>
+        <p class="auth-error" id="authError" hidden></p>
+        <button class="btn btn--block" type="submit" id="authSubmit">Sign in</button>
+      </form>
+      <p class="note" style="margin-top:.8rem">Your saved plants, notes, lists and sightings sync to every device you sign in on.</p>`;
+  }
+  function guestForm() {
+    return `
+      <span class="eyebrow">Guest mode</span>
+      <h2 id="authTitle" style="margin:.4rem 0 .6rem">Saved on this device</h2>
+      <p class="note">You're using Poison Plant Finder as a guest — your favorites, notes, lists and sightings
+        are saved in <b>this browser only</b>. Pick a display name to personalize it.</p>
+      <form id="guestForm" class="stack" style="margin-top:1rem">
+        <label class="field-label">Display name
+          <input class="field field--block" type="text" id="gName" placeholder="e.g. Dillon" value="${(Store.user()?.name && Store.user().name !== "Guest") ? Store.user().name : ""}" />
+        </label>
+        <button class="btn btn--block" type="submit">Save</button>
+      </form>
+      <p class="note" style="margin-top:1rem">Want it to sync to your phone and other computers? Add a free Supabase key in
+        <code>js/config.js</code> to turn on real accounts — see the README.</p>`;
+  }
+
+  function switchTab(tab) {
+    $$("#authModal .tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+    const signup = tab === "signup";
+    $("#nameRow").toggleAttribute("hidden", !signup);
+    $("#authTitle").textContent = signup ? "Create your account" : "Welcome back";
+    $("#authSubmit").textContent = signup ? "Create account" : "Sign in";
+    $("#aPass").setAttribute("autocomplete", signup ? "new-password" : "current-password");
+    $("#authForm").dataset.mode = tab;
+  }
+
+  async function submitCloud(e) {
+    e.preventDefault();
+    const mode = $("#authForm").dataset.mode;
+    const email = $("#aEmail").value.trim(), pass = $("#aPass").value, name = $("#aName").value.trim();
+    const err = $("#authError"), btn = $("#authSubmit");
+    err.setAttribute("hidden", ""); btn.disabled = true; btn.textContent = "…";
+    try {
+      if (mode === "signup") {
+        const r = await Store.auth.signUp(email, pass, name);
+        if (r.needsConfirm) { showInfo("Check your email to confirm your account, then sign in."); btn.disabled = false; switchTab("signin"); return; }
+      } else {
+        await Store.auth.signIn(email, pass);
+      }
+      closeModal();
+    } catch (ex) {
+      err.textContent = friendly(ex.message); err.removeAttribute("hidden");
+      btn.disabled = false; btn.textContent = mode === "signup" ? "Create account" : "Sign in";
+    }
+  }
+  function showInfo(msg) { const err = $("#authError"); if (err) { err.textContent = msg; err.classList.add("info"); err.removeAttribute("hidden"); } }
+  function friendly(m) {
+    if (/invalid login/i.test(m)) return "Email or password is incorrect.";
+    if (/already registered/i.test(m)) return "That email already has an account — try signing in.";
+    return m || "Something went wrong. Try again.";
+  }
+
+  async function submitGuest(e) {
+    e.preventDefault();
+    const name = $("#gName").value.trim() || "Guest";
+    await Store.auth.signIn(name); // guest signIn just sets the display name
+    closeModal();
+  }
+
+  /* ---- guest banner (shown once-ish) ----------------------------------- */
+  function maybeBanner() {
+    if (Store.isCloud()) return;
+    if (localStorage.getItem("ppf_hide_guest_banner")) return;
+    const b = document.createElement("div");
+    b.className = "guest-banner";
+    b.innerHTML = `<div class="wrap">
+      <span>You're in <b>guest mode</b> — saves stay on this device. Turn on free accounts to sync everywhere.</span>
+      <span class="guest-banner__actions">
+        <a href="account.html">Learn how</a>
+        <button id="dismissGuest" aria-label="Dismiss">Dismiss</button>
+      </span></div>`;
+    const header = $(".site-header");
+    header.insertAdjacentElement("afterend", b);
+    $("#dismissGuest").addEventListener("click", () => { localStorage.setItem("ppf_hide_guest_banner", "1"); b.remove(); });
+  }
+
+  /* ---- mount ----------------------------------------------------------- */
+  window.mountAccount = function () {
+    acctSlot = document.getElementById("acctSlot");
+    Store.onChange(renderAccount);
+    renderAccount(Store.user());
+    maybeBanner();
+  };
+  window.openAuth = openModal;
+})();
 
 </script>
   <script>
