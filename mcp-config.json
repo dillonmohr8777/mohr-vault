@@ -7,14 +7,6 @@
         "OBSIDIAN_API_URL": "https://127.0.0.1:27124",
         "OBSIDIAN_API_KEY": "YOUR_API_KEY_HERE"
       }
-    },
-    "orgo": {
-      "command": "npx",
-      "args": ["-y", "github:nickvasilescu/orgo-mcp"],
-      "env": {
-        "ORGO_API_KEY": "REPLACE_WITH_YOUR_ORGO_API_KEY",
-        "ORGO_DEFAULT_COMPUTER_ID": ""
-      }
     }
   }
 }
