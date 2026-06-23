@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "orgo": {
+      "type": "http",
+      "url": "https://orgo-mcp.onrender.com/mcp",
+      "headers": {
+        "X-Orgo-API-Key": "${ORGO_API_KEY}"
+      }
+    }
+  }
+}
