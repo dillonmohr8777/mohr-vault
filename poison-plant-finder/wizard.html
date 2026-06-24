@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ID wizard — Poison Plant Finder</title>
+  <meta name="description" content="Answer one question at a time about the leaf, flower and habitat to narrow down a dangerous plant." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="wizard">
+  <section class="section">
+    <div class="wrap" style="max-width:760px">
+      <span class="eyebrow">Guided identification</span>
+      <h1 style="margin:.4rem 0 .6rem">ID wizard</h1>
+      <p class="lede" style="margin-bottom:1.8rem">One question at a time. Answer what you can see and skip the rest —
+        we'll narrow the list of dangerous plants as you go. Not a diagnosis: always confirm against the profile and look-alikes.</p>
+
+      <div class="wizard" id="wizard">
+        <div class="wizard__bar"><div class="wizard__progress" id="progress"></div></div>
+        <div class="wizard__count" id="count"></div>
+        <div id="stage"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/auth-ui.js"></script>
+  <script src="js/wizard.js"></script>
+</body>
+</html>

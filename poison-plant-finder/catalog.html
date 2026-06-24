@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All plants — Poison Plant Finder</title>
+  <meta name="description" content="Browse the full catalog of poisonous plants with severity, invasive status and contact-hazard flags." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="catalog">
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">The field guide</span>
+      <h1 style="margin:.4rem 0 1.4rem">All dangerous plants</h1>
+
+      <div class="toolbar">
+        <input class="field field--search" id="search" type="search" placeholder="Search name or scientific name…" aria-label="Search plants" />
+        <select class="field" id="sev" aria-label="Filter by severity">
+          <option value="">Any severity</option>
+          <option value="5">5 · Deadly</option>
+          <option value="4">4 · Severe</option>
+          <option value="3">3 · Toxic</option>
+          <option value="2">2 · Harmful</option>
+          <option value="1">1 · Irritant</option>
+        </select>
+        <select class="field" id="flag" aria-label="Filter by hazard type">
+          <option value="">All hazards</option>
+          <option value="touch">Harmful to touch</option>
+          <option value="invasive">Invasive</option>
+        </select>
+        <select class="field" id="sort" aria-label="Sort">
+          <option value="sev">Sort: most dangerous</option>
+          <option value="az">Sort: A–Z</option>
+        </select>
+        <span class="count" id="count"></span>
+      </div>
+
+      <div class="grid-plants" id="grid"></div>
+      <p class="center muted hidden" id="empty" style="margin-top:2rem">No plants match those filters. <a href="#" id="clear">Clear filters</a>.</p>
+    </div>
+  </section>
+
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/auth-ui.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>
