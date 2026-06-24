@@ -1,0 +1,107 @@
+# Sunday Presentation
+#
+# This workflow generates a weekly presentation deck from a markdown input file,
+# optionally uploads the resulting .pptx to Slack, and commits the generated deck
+# (and archived input) back to the repository.
+#
+# It runs on a weekly schedule and can also be triggered manually.
+# NOTE: Scheduled (cron) runs only ever fire from the repository's default branch.
+name: "Sunday Presentation"
+
+on:
+  schedule:
+    - cron: "0 21 * * 0" # Sunday 21:00 UTC ≈ 5 PM US Eastern in summer / 4 PM in winter — adjust as needed
+  workflow_dispatch:
+    inputs:
+      input_file:
+        description: "Path to the markdown input file"
+        default: "presentations/input/next.md"
+        required: false
+
+permissions:
+  contents: write # needed to commit the generated deck back
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r presentations/requirements.txt
+
+      - name: Generate presentation
+        env:
+          INPUT_FILE: ${{ github.event.inputs.input_file || 'presentations/input/next.md' }}
+        run: |
+          python presentations/generate.py --input "$INPUT_FILE"
+
+          # Archive a copy of the input after a successful build
+          if [ -f "$INPUT_FILE" ]; then
+            mkdir -p presentations/input/archive
+            cp "$INPUT_FILE" "presentations/input/archive/$(date -u +%Y-%m-%d).md"
+          fi
+
+      - name: Upload to Slack (optional)
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+        run: |
+          set -e
+
+          if [ -z "$SLACK_BOT_TOKEN" ]; then
+            echo "SLACK_BOT_TOKEN not set; skipping Slack upload."
+            exit 0
+          fi
+
+          # Find the newest generated deck
+          FILE=$(ls -t presentations/output/*.pptx | head -n1)
+          echo "Selected file for upload: $FILE"
+
+          # a) File size in bytes
+          LEN=$(wc -c < "$FILE")
+
+          # b) Request an external upload URL
+          GET_URL_RESP=$(curl -s \
+            -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+            -F "filename=$(basename "$FILE")" \
+            -F "length=$LEN" \
+            "https://slack.com/api/files.getUploadURLExternal")
+
+          # Parse upload_url and file_id (two lines of output)
+          {
+            read -r UPLOAD_URL
+            read -r FILE_ID
+          } < <(echo "$GET_URL_RESP" | python3 -c 'import sys,json;d=json.load(sys.stdin);print(d["upload_url"]);print(d["file_id"])')
+
+          # c) POST the raw file bytes to the returned upload URL
+          curl -s -F filebytes=@"$FILE" "$UPLOAD_URL"
+
+          # e) If no channel id, skip the complete step
+          if [ -z "$SLACK_CHANNEL_ID" ]; then
+            echo "SLACK_CHANNEL_ID is missing; skipping completeUploadExternal step."
+            exit 0
+          fi
+
+          # d) Complete the upload and share to the channel
+          curl -s \
+            -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+            -H 'Content-type: application/json; charset=utf-8' \
+            -d "{\"files\":[{\"id\":\"$FILE_ID\",\"title\":\"Weekly Presentation\"}],\"channel_id\":\"$SLACK_CHANNEL_ID\"}" \
+            "https://slack.com/api/files.completeUploadExternal"
+
+          echo "Uploaded $FILE to Slack channel $SLACK_CHANNEL_ID"
+
+      - name: Commit generated deck
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add presentations/output presentations/input/archive presentations/MEMORY.md || true
+          git diff --staged --quiet || git commit -m "Auto: weekly presentation $(date -u +%Y-%m-%d)"
+          git push || true
