@@ -5,6 +5,10 @@
 
 ---
 
+## 2026-06-24 - Set up Sunday Presentation ritual + `CLAUDE.md` persistent memory; added `12_Presentations/` (template + README) and `04_SOPs/Sunday Presentation SOP.md`; recurring 5 PM Sunday reminder.
+
+---
+
 ## 2026-04-15 - Vault integrity sync
 
 **Summary of vault changes**
