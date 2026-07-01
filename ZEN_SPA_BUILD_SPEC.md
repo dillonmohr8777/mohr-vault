@@ -20,14 +20,13 @@
    - Pricing display rule from client: **do NOT** list times as "50/80/100 + prices" (confusing).
      Display times and pricing tastefully (e.g., "60 min · $XXX" per row).
 
-2. **Re item #4 (native-only confirmation) — current site is NOT purely native.** The site's
-   **Settings → Code Injection (Header)** contains custom JavaScript that pulls assets from an external
-   app: `blissful-zen-spa-tropicana.netlify.app` (favicon override + a `setZenSpaFavicon()` script, plus
-   a google-site-verification meta). The client explicitly wants the site built with "traditional drag and
-   drop… no external tools or AI importing." **Decision needed:** strip the injected code and go fully
-   native (risk: may affect favicon/verification on the live site) or leave it. Recommend leaving the
-   google-site-verification meta, removing the Netlify favicon script, and setting the favicon natively
-   under Design → Logo & Title.
+2. **Re item #4 (native-only) — RESOLVED: strip it, go fully native.** Dillon approved (2026-07-01)
+   removing the external code injection. Action: in **Settings → Code Injection (Header)**, **delete the
+   Netlify favicon script** (`setZenSpaFavicon()` + the three `blissful-zen-spa-tropicana.netlify.app`
+   `<link>` tags). **Keep** the `google-site-verification` meta (harmless, needed for Search Console). Set
+   the favicon **natively** under **Design → Logo & Title** by uploading the Zen Spa logo. After this the
+   site is buildable as fully native drag-and-drop, satisfying item #4.
+   - Client emphasis: **"make it look good" + use the EXACT official brand logos** (see #8).
 
 3. **Environment stability.** These are 4GB editor VMs that crash ("Aw Snap") on heavy editor pages,
    and the automation session itself has been restarting ~every 2 min (MCP disconnects). A full build
@@ -175,13 +174,40 @@ removed CBD text from Home; removed 3 fitness images; global palette started (re
 **Build discipline:** native blocks only; type/paste content directly; Save frequently; reload on crash;
 keep tabs minimal on the 4GB VMs; restart a VM to clear memory if it gets sluggish.
 
+## ▶️ How to run this build in a stable, long-running session
+
+The Orgo VMs, the Squarespace login, and this spec are all **persistent** — only the automation
+*session* needs to be stable. Run Claude Code from a host that doesn't recycle (your own computer):
+
+1. **Install Claude Code** — desktop app from https://claude.ai/code, or CLI: `npm install -g @anthropic-ai/claude-code`.
+2. **Clone the repo + check out this branch:**
+   ```bash
+   git clone https://github.com/dillonmohr8777/mohr-vault.git
+   cd mohr-vault
+   git checkout claude/zen-spa-squarespace-handoff-c8nk6a
+   ```
+3. **Export the Orgo API key** (same key used in the web env; format `sk_live_...`):
+   ```bash
+   export ORGO_API_KEY=sk_live_your_real_key
+   ```
+   `.mcp.json` already points at the hosted Orgo endpoint and reads this var — no install needed.
+4. **Launch** `claude` in the repo dir; approve the `orgo` MCP server when prompted; run `orgo_doctor` to verify auth.
+5. **Kick off the build:**
+   > "Read ZEN_SPA_BUILD_SPEC.md and execute the whole build on the Zen Spa Squarespace site via the
+   > Orgo VMs. Start by stripping the Netlify code injection (#4), then palette (#1), font (#7), sticky
+   > header + Book Now + hamburger (#3/#5), then the homepage per the 3 mockups. Save often; reload on crash."
+
+**Gotchas for the driver:** primary VM `zenspa-social-setup` renders 1920×1080 but `orgo_click` uses
+1280×720 space → multiply screenshot coords by **2/3**. Worker VMs are 1280×720 (no scaling). Keep tabs
+minimal on the 4GB VMs; use only the Zen Spa tab on `mohr-media` / `ii-launch-control`.
+
 ## ✅ Status checklist
 
 - [ ] #1 Palette exact hex applied site-wide (Site Styles)
 - [ ] #7 Font set (headings + body)
 - [ ] #2 Mobile optimization (Chrome + Safari) — TOP PRIORITY
 - [ ] #3/#5 Sticky header + Book Now + hamburger; fix Book Now/nav overlap
-- [ ] #4 Native-build confirmation (resolve code-injection decision)
+- [ ] #4 Native build — strip Netlify code injection (keep google-site-verification), set favicon natively
 - [ ] #6 Service circles clickable → category pages
 - [ ] #8 Brand logos section + SkinCeuticals background
 - [ ] #9 Nav placeholder pages in exact order
