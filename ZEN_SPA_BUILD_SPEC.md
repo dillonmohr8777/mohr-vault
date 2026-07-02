@@ -129,6 +129,12 @@ Client-supplied real photos — place natively (image blocks), replacing current
   hamburger fix. Preserve the current published look the client likes; edits are additive/replacement,
   not a teardown.
 
+## ✅ Mobile header RE-APPLIED & verified live (2026-07-02, later) — consolidated into one block
+Restored after the concurrency revert as a single `<style id="zen-mobile-final">` + guarded script in
+Header code injection: single-column menu (`grid-template-columns:1fr` + item `grid-column:1/-1`),
+navy `#1B2F54` hamburger lines, gold mobile Book Now (left of burger → Boulevard). Verified on fresh live
+load: `finalCss:true`, `bookBtn:true`, correct href. If it reverts again, that's the concurrency issue below.
+
 ## ⚠️ CONCURRENCY INCIDENT (2026-07-02) — sequence editors, don't run both at once
 My header-injection mobile fixes (single-column menu, navy hamburger, mobile Book Now) were **reverted on
 live** — the Header code injection rolled back to the original 59964-char version. Cause: **Codex (editor)
