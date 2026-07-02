@@ -1,0 +1,20 @@
+# Project-scoped Codex config for the Zen Spa build.
+# Codex uses this format instead of Claude Code's .mcp.json.
+# If Codex doesn't pick this up automatically, register the server with the CLI instead:
+#   codex mcp add playwright -- npx -y @playwright/mcp@latest --cdp-endpoint http://localhost:9222
+# Verify inside the Codex TUI with:  /mcp
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest", "--cdp-endpoint", "http://localhost:9222"]
+
+# Note on Orgo: the Orgo MCP is an HTTP server that authenticates with a custom
+# `X-Orgo-API-Key` header. Codex's HTTP MCP support only sends a bearer token
+# (Authorization: Bearer via `bearer_token_env_var`), so Orgo is NOT wired here.
+# It isn't needed for the local-Chrome path. If you want the cloud VMs in Codex,
+# run Orgo's stdio variant instead:
+#   [mcp_servers.orgo]
+#   command = "npx"
+#   args = ["-y", "github:nickvasilescu/orgo-mcp"]
+#   [mcp_servers.orgo.env]
+#   ORGO_API_KEY = "sk_live_your_real_key"   # do NOT commit a real key

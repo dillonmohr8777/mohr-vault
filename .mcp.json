@@ -6,6 +6,15 @@
       "headers": {
         "X-Orgo-API-Key": "${ORGO_API_KEY}"
       }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--cdp-endpoint",
+        "http://localhost:9222"
+      ]
     }
   }
 }
