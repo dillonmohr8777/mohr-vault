@@ -289,7 +289,11 @@ minimal on the 4GB VMs; use only the Zen Spa tab on `mohr-media` / `ii-launch-co
 
 - [ ] #1 Palette exact hex applied site-wide (Site Styles)
 - [ ] #7 Font set (headings + body)
-- [ ] #2 Mobile optimization (Chrome + Safari) — TOP PRIORITY
+- [~] #2 Mobile optimization — **mobile menu 2-column overlap/font-bleed FIXED & LIVE (2026-07-02)**:
+      changed injected CSS `#header .header-menu-nav-list` to `grid-template-columns: 1fr !important` and
+      the nav-item flex/width to 100% (verified on live site: 1 match new rule, 0 old). Remaining mobile
+      QA (no horizontal overflow on all key pages, Safari check) still TODO. Full backup at
+      `/root/injection_backup_*.json` on the primary VM.
 - [ ] #3/#5 Sticky header + Book Now + hamburger — overlap FIXED (duplicate injected button removed,
       2026-07-02); sticky position + hamburger layout still to do
 - [ ] #4 Native build — strip Netlify code injection (keep google-site-verification), set favicon natively
