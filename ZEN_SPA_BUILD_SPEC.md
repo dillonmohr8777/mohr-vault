@@ -294,6 +294,24 @@ The Orgo VMs, the Squarespace login, and this spec are all **persistent** — on
 1280×720 space → multiply screenshot coords by **2/3**. Worker VMs are 1280×720 (no scaling). Keep tabs
 minimal on the 4GB VMs; use only the Zen Spa tab on `mohr-media` / `ii-launch-control`.
 
+## 📝 Copy status — MEASURED 2026-07-02 (live vs. finish-packet wording)
+
+Compared each live route against `ZEN_SPA_FINISH_PACKET.md` signature phrases:
+- **Home `/` — ✅ HAS final packet copy.**
+- **Needs packet copy (24 pages):** /about, /services, /full-service-menu, /shop, /group-events, /contact,
+  /faqs, /spa-memberships, /spa-package-deals, /monthly-specials-and-offers, /gallery, /careers,
+  /privacy-policy, /terms, /massages, /facials, /head-spa, /waxing, /foot-soaks, /makeup, /lashes-brows,
+  /day-pass, /couples-treatments, /body-treatments. (These currently hold older/interim copy — pages
+  render natively but with different wording than the packet.)
+
+**Why copy is NOT done via the remote debug port:** the code-injection field has a clean CodeMirror
+get/setValue+Save API (so header/CSS/mobile edits persist reliably and were completed). Page **body**
+copy is persisted from Squarespace's internal editor model, not the page DOM — DOM edits injected over
+CDP do not survive Save. Reliable copy editing requires driving the real editor UI (Input-level typing +
+per-block save), best done in a **sustained local editor session** (`RUN.md`); the final copy for every
+page is in `ZEN_SPA_FINISH_PACKET.md`, so it is mechanical paste-work there. Site also rate-limits (429)
+automated fetches from the VM.
+
 ## ✅ Status checklist
 
 - [ ] #1 Palette exact hex applied site-wide (Site Styles)
