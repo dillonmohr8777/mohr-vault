@@ -72,6 +72,27 @@ Publishing anything live, and before deleting existing sections.
 
 ---
 
+---
+
+## Alternative: run with OpenAI Codex instead of Claude Code
+
+Codex is a terminal agent like Claude Code and works for this too. Key difference: **Codex does NOT read
+`.mcp.json`** — it uses `~/.codex/config.toml` (or the project-scoped `.codex/config.toml` already committed
+here). It also reads **`AGENTS.md`** (committed here) the way Claude Code reads `CLAUDE.md`.
+
+1. **Install Codex:** `npm install -g @openai/codex` (or `brew install codex`). Sign in with ChatGPT, or set `OPENAI_API_KEY`.
+2. **Register the Playwright MCP server** (most reliable method — the committed `.codex/config.toml` may or
+   may not be auto-picked-up depending on Codex version, see openai/codex issue #3441):
+   ```bash
+   codex mcp add playwright -- npx -y @playwright/mcp@latest --cdp-endpoint http://localhost:9222
+   ```
+3. **Launch Chrome with the debug port** — same as Step 2 above (`--remote-debugging-port=9222`), logged into Squarespace.
+4. **Run** `codex` from the `mohr-vault` folder. Verify the server with `/mcp` in the TUI.
+5. **Kick off** with the same prompt as Step 5 below (Codex will also auto-read `AGENTS.md`).
+
+Either agent works — pick whichever you have set up. The Chrome-with-debug-port step (and the two
+still-needed inputs) are identical for both.
+
 ## Safety notes
 - **Reversible:** Squarespace keeps page **version history** and Site Styles can be reverted, so edits
   are recoverable. Still, the kickoff prompt tells Claude to **pause before Publishing** and **before
