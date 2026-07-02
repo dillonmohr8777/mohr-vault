@@ -26,6 +26,10 @@ legible (match mockup #1: ~5 across on desktop, 2 across on mobile). 10 circles,
 category page**: Massage, Medical Grade Facials, Head Spa, Waxing, Foot Soak, Makeup, Lash & Brows,
 Tea Lounge Experience, Couples Treatments, Body Wraps & Scrubs.
 
+Use Dillon's final replacement service images from `assets/homepage/service-circles/crops/`. These are
+1200x1200 square crops prepared for circular display. Exact upload/link mapping is documented in
+`assets/homepage/service-circles/README.md`.
+
 ### 3) Add the missing icons (native Squarespace icons/image blocks — NO code)
 Match the mockups. Two spots are currently **bare**:
 - **Homepage value row** (mockup #1): Luxury Experiences = lotus · Ancient Inspiration = leaf ·
