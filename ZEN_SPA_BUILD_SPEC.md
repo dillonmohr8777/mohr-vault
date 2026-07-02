@@ -129,6 +129,15 @@ Client-supplied real photos — place natively (image blocks), replacing current
   hamburger fix. Preserve the current published look the client likes; edits are additive/replacement,
   not a teardown.
 
+## 📱 Mobile header — DONE & LIVE (2026-07-02, verified)
+- Single-column dropdown (client-confirmed correct per packet: "one column, not two").
+- **Hamburger icon recolored navy `#1B2F54`** (was near-white/invisible on ivory) — targets the
+  `.burger-inner`/`.header-menu-icon-doubleLineHamburger` `::before`/`::after` lines.
+- **Gold "Book Now" button added to the mobile top bar, left of the hamburger** (links to Boulevard),
+  mobile-only (`@media max-width:880`), matching the homepage mockup. Injected as `<style id="zen-burger-booknow">`
+  + a small guarded script in Header code injection (interim; folds into the native header rebuild later).
+  Verified live: button present, correct href, positioned left of burger.
+
 ## 📱 Mobile hamburger fix (client priority, from Reference IMG_2003)
 Current mobile dropdown is a **2-column grid with overlapping/bleeding labels** ("SPA PACKAGE DEALS" runs
 into "MONTHLY SPECIALS AND OFFERS"). Required:
