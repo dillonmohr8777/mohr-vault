@@ -114,6 +114,32 @@ normalizer) — chrome, not content. Confirms item #4 is achievable by replacing
 with native equivalents; the bodies are already done natively. (Client confirmed he loves the current
 published look — so preserve it visually while swapping the injected nav/styling to native.)
 
+## 🖼️ Homepage image placement map (assets committed in `assets/homepage/`, 2026-07-02)
+Client-supplied real photos — place natively (image blocks), replacing current placeholders:
+- **`hero-buddha-massage-room.png`** → **Home HERO** background/image (replaces the current meditating-people
+  hero). Matches mockup #1 exactly (seated Buddha, candles, massage bed, orchid).
+- **`shop-retail-products.png`** → **Shop** "Bring the Zen Spa Experience Home" retail image and/or the
+  Professional-Brands section background (marble flat-lay: IMAGE Skincare, Circadia, skinbetter, Medik8).
+- **`group-events-tea-lounge.png`** → **Group Events** "Celebrate Together" left image (Zen Spa tea lounge).
+
+## 👷 Labor split (2026-07-02)
+- **Codex** is handling the **10-logo brand grid** (item #8). Do NOT duplicate that work.
+- **This track (Claude):** place the 3 hero/section images above; **build out final page copy for all
+  remaining routes** (TOP PRIORITY — use `ZEN_SPA_FINISH_PACKET.md` verbatim); native icons; mobile
+  hamburger fix. Preserve the current published look the client likes; edits are additive/replacement,
+  not a teardown.
+
+## 📱 Mobile hamburger fix (client priority, from Reference IMG_2003)
+Current mobile dropdown is a **2-column grid with overlapping/bleeding labels** ("SPA PACKAGE DEALS" runs
+into "MONTHLY SPECIALS AND OFFERS"). Required:
+- **Single column**, one item per row; no overlap, no font bleed; ≥44px tap height per item.
+- Navy `#1B2F54` panel, ivory/white labels, thin gold `#A98B52` dividers.
+- Logo stays in the ivory top bar; a **clearly visible hamburger (three lines)** and a clear close **X**.
+- Only ONE Book Now (kill any duplicate injected button); no horizontal overflow.
+- NOTE: today's mobile menu is produced by the injected CSS/JS — fixing it natively is part of replacing
+  the injected chrome (see the strip-order section). Until native nav exists, the minimal safe fix is to
+  correct the injected CSS grid to one column so labels stop overlapping.
+
 ## 🎯 Dillon decisions (2026-07-02)
 - **Brand logo grid = 10 tiles**, matching mockup IMG_2004: FarmHouse Fresh, SkinCeuticals, OBAGI Medical,
   Dermalogica, GrandeLASH-MD, OLAPLEX, amika, Redken, K18, **+ "& more!"** tile (9 logos + 1). Do NOT use
