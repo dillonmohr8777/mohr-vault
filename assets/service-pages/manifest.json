@@ -1,0 +1,82 @@
+[
+  {
+    "route": "/massages",
+    "title": "Massage",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\CDnXQ.jpg",
+    "file": "assets/service-pages/massages-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/facials",
+    "title": "Medical Grade Facials",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\uLZF9.jpg",
+    "file": "assets/service-pages/facials-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/head-spa",
+    "title": "Head Spa",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\ed50i.jpg",
+    "file": "assets/service-pages/head-spa-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/waxing",
+    "title": "Waxing",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\mM05O.jpg",
+    "file": "assets/service-pages/waxing-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/foot-soaks",
+    "title": "Foot Soaks",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\N9Spm.jpg",
+    "file": "assets/service-pages/foot-soaks-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/makeup",
+    "title": "Makeup",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\tiGG0.jpg",
+    "file": "assets/service-pages/makeup-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/lashes-brows",
+    "title": "Lashes and Brows",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\RRKwD.jpg",
+    "file": "assets/service-pages/lashes-brows-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/day-pass",
+    "title": "Tea Lounge Experience",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\evcj8.jpg",
+    "file": "assets/service-pages/tea-lounge-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/couples-treatments",
+    "title": "Couples Treatments",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\PlSl0 (1).jpg",
+    "file": "assets/service-pages/couples-treatments-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  },
+  {
+    "route": "/body-treatments",
+    "title": "Body Wraps and Scrubs",
+    "source": "C:\\Users\\DillonMohr\\Downloads\\dmdNf.jpg",
+    "file": "assets/service-pages/body-treatments-hero.jpg",
+    "recommended_use": "service page hero image",
+    "notes": "Generated from Dillon-approved source photo; no text/logos/CBD added."
+  }
+]
