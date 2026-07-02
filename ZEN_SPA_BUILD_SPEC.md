@@ -140,9 +140,10 @@ Mailchimp) and a test submission is captured. Fix connection if submissions aren
 
 ## 📄 Item #13 — Footer privacy policy (booking-site requirements)
 
-Confirm the **booking platform** (Book Now target) — needed to include its required privacy/terms language.
-Add footer links: **Privacy Policy, Terms of Service**, plus any booking-provider-required disclosures
-(e.g., SMS/booking data consent). Footer text uses Muted Gold `#9A8859`.
+**Booking platform CONFIRMED: Boulevard** (the native Book Now nav link points to Boulevard —
+verified in the 2026-07-02 Codex pass). Add footer links: **Privacy Policy, Terms of Service**, plus
+Boulevard-required disclosures (booking data/SMS consent per Boulevard's client-data terms). Footer
+text uses Muted Gold `#9A8859`.
 
 ## 🏠 Homepage assembly (per client: ONLY the content in the 3 mockups, in order)
 
@@ -170,6 +171,19 @@ Add footer links: **Privacy Policy, Terms of Service**, plus any booking-provide
 
 **Already done & live (prior work):** Buddha hero swap (was ginger); removed 2 fake testimonial sections;
 removed CBD text from Home; removed 3 fitness images; global palette started (red→Gold `#A98B52`, sage→Navy).
+
+**Codex pass, 2026-07-02 (local session on Dillon's machine):**
+- Removed the duplicate injected desktop **Book Now** button that overlapped the nav (native Book Now
+  nav link remains, pointing to **Boulevard**).
+- Newsletter/contact form copy updated from generic "health insights/program updates" text to
+  Zen Spa-specific copy. Form renders First Name / Last Name / Email / SIGN UP (no test submission made —
+  **item #12 still needs a test submission verified end-to-end**).
+- Public QA across 25 routes: all 200, all populated, no CBD references, no old filler, no
+  "Made with Squarespace" visible, no mobile horizontal overflow on key pages.
+- Remaining known gaps after this pass: **Home, Shop, and Group Events are not yet fully broken into
+  separate native image/button blocks** (i.e., not yet a 100% native rebuild); homepage still needs the
+  full 3-mockup assembly. QA snapshots on Dillon's machine under
+  `Desktop\Codex\handoffs\zen-spa-site-update-2026-06-29\`.
 
 **Build discipline:** native blocks only; type/paste content directly; Save frequently; reload on crash;
 keep tabs minimal on the 4GB VMs; restart a VM to clear memory if it gets sluggish.
@@ -206,7 +220,8 @@ minimal on the 4GB VMs; use only the Zen Spa tab on `mohr-media` / `ii-launch-co
 - [ ] #1 Palette exact hex applied site-wide (Site Styles)
 - [ ] #7 Font set (headings + body)
 - [ ] #2 Mobile optimization (Chrome + Safari) — TOP PRIORITY
-- [ ] #3/#5 Sticky header + Book Now + hamburger; fix Book Now/nav overlap
+- [ ] #3/#5 Sticky header + Book Now + hamburger — overlap FIXED (duplicate injected button removed,
+      2026-07-02); sticky position + hamburger layout still to do
 - [ ] #4 Native build — strip Netlify code injection (keep google-site-verification), set favicon natively
 - [ ] #6 Service circles clickable → category pages
 - [ ] #8 Brand logos section + SkinCeuticals background
@@ -214,6 +229,6 @@ minimal on the 4GB VMs; use only the Zen Spa tab on `mohr-media` / `ii-launch-co
 - [ ] #10 Group Events section + Buddha image
 - [ ] #11 Deadline confirmation (by Wednesday) — see instability note
 - [ ] #12 Mailing-list popup verified collecting data
-- [ ] #13 Footer privacy policy (booking platform)
+- [ ] #13 Footer privacy policy — platform confirmed: **Boulevard**; add footer links + disclosures
 - [ ] Homepage = only the 3 mockups, in order
 - [ ] BLOCKER: obtain final service menu for pricing/copy
