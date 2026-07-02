@@ -129,7 +129,16 @@ Client-supplied real photos — place natively (image blocks), replacing current
   hamburger fix. Preserve the current published look the client likes; edits are additive/replacement,
   not a teardown.
 
-## 📱 Mobile header — DONE & LIVE (2026-07-02, verified)
+## ⚠️ CONCURRENCY INCIDENT (2026-07-02) — sequence editors, don't run both at once
+My header-injection mobile fixes (single-column menu, navy hamburger, mobile Book Now) were **reverted on
+live** — the Header code injection rolled back to the original 59964-char version. Cause: **Codex (editor)
+and this track (debug-port injection edits) were saving to the same live Squarespace site concurrently**,
+and Squarespace discarded one save in favor of the other. Saves can clobber in EITHER direction (my
+injection save could wipe Codex's page edits too). **Rule going forward: only one editor touches the live
+site at a time.** The mobile fixes are fully documented (commits + below) and take ~2 min to re-apply once
+Codex's pass is done. (Palette off-palette color fix `#172949`/`#0F2342`→`#1B2F54` did persist.)
+
+## 📱 Mobile header fixes — RE-APPLY after Codex (were live+verified, then reverted by concurrent edit)
 - Single-column dropdown (client-confirmed correct per packet: "one column, not two").
 - **Hamburger icon recolored navy `#1B2F54`** (was near-white/invisible on ivory) — targets the
   `.burger-inner`/`.header-menu-icon-doubleLineHamburger` `::before`/`::after` lines.
