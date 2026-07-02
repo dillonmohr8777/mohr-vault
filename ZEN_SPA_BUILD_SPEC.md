@@ -13,12 +13,19 @@
 
 ## ⚠️ Blockers / decisions needed from Dillon
 
-1. **Missing attachment — the "final updated service menu."** The client referenced attaching a
-   finalized service menu (used for the service circles, category pages, pricing, and future social
-   posts). It did **not** arrive — only the 3 homepage mockups came through. Service-page **copy and
-   pricing cannot be finalized without it.** Everything else can proceed.
+1. **RESOLVED (2026-07-02): full service menu + all page copy received.** See
+   **`ZEN_SPA_FINISH_PACKET.md`** (committed alongside this spec) — it contains the complete service
+   menu with pricing, final copy for all 25 routes, the 13 transparent brand-logo PNG URLs (verified
+   live on GitHub), and the Boulevard booking URL
+   (`https://www.joinblvd.com/b/zenspatropicana/widget`). **The packet is the content source of truth**;
+   this spec remains the design/brief source of truth.
    - Pricing display rule from client: **do NOT** list times as "50/80/100 + prices" (confusing).
-     Display times and pricing tastefully (e.g., "60 min · $XXX" per row).
+     Display each duration/price spelled out tastefully (the packet's "50 minutes – $145; 80 minutes –
+     $220" format satisfies this; a stacked per-line layout is even cleaner on mobile).
+   - ⚠️ **Nav-order conflict to resolve with the client:** Ambika's email specified 8 hamburger items
+     (Book Now, Shop, Full Service Menu, Group Events, FAQs, About Us, Careers, Gallery); the finish
+     packet specifies 11 (adding Spa Package Deals, Spa Memberships, Monthly Specials and Offers after
+     Book Now). Packet is newer — default to the packet's 11 unless Ambika says otherwise.
 
 2. **Re item #4 (native-only) — RESOLVED: strip it, go fully native.** Dillon approved (2026-07-01)
    removing the external code injection. Action: in **Settings → Code Injection (Header)**, **delete the
@@ -231,4 +238,5 @@ minimal on the 4GB VMs; use only the Zen Spa tab on `mohr-media` / `ii-launch-co
 - [ ] #12 Mailing-list popup verified collecting data
 - [ ] #13 Footer privacy policy — platform confirmed: **Boulevard**; add footer links + disclosures
 - [ ] Homepage = only the 3 mockups, in order
-- [ ] BLOCKER: obtain final service menu for pricing/copy
+- [x] ~~BLOCKER: obtain final service menu for pricing/copy~~ RESOLVED — see `ZEN_SPA_FINISH_PACKET.md`
+      (full menu + 25-route copy + 13 logo PNGs + Boulevard URL). Nothing is blocked anymore.
