@@ -105,6 +105,26 @@ Tea Lounge Experience · Couples Treatments · Body Wraps & Scrubs.
 (Client's note referenced "Curated for You"; mockup label is "SERVICES DESIGNED FOR YOU" — confirm wording.)
 Each circle = image + caption + link. Use native Image blocks with click-through, or a Summary/link block.
 
+## ✅ Native-vs-code AUDIT (2026-07-02, measured over all 25 live routes)
+
+**Every published route contains ZERO code blocks** (`sqs-block-code` count = 0 across all 25). Total
+~1,691 native blocks (text/image/button/etc.). **The page CONTENT is 100% native and client-editable.**
+The ONLY remaining code is the site-wide header injection (nav + CSS + favicon + SEO schema + encoding
+normalizer) — chrome, not content. Confirms item #4 is achievable by replacing just the injected chrome
+with native equivalents; the bodies are already done natively. (Client confirmed he loves the current
+published look — so preserve it visually while swapping the injected nav/styling to native.)
+
+## 🎯 Dillon decisions (2026-07-02)
+- **Brand logo grid = 10 tiles**, matching mockup IMG_2004: FarmHouse Fresh, SkinCeuticals, OBAGI Medical,
+  Dermalogica, GrandeLASH-MD, OLAPLEX, amika, Redken, K18, **+ "& more!"** tile (9 logos + 1). Do NOT use
+  the full 13 in the visible grid (drop Circadia, IMAGE Skincare, Medik8, Skinbetter Science from the grid).
+  Use the exact transparent PNGs (GitHub URLs in `ZEN_SPA_FINISH_PACKET.md`); upload to Squarespace media.
+- **Icons (value rows): native only, no code.** Use Squarespace-native image blocks with uploaded
+  icon SVG/PNG (lotus, leaf, heart, bag, gift, truck, shield/check, chat). Avoid code/embed blocks.
+- **Keep the Group Events page** (`/group-events`) — it's required nav item #7 and already native; the
+  homepage "Group Bookings" block is a teaser that links to it. No separate/duplicate group page needed.
+- **Defer** the extra decorative/free images for now (client will place later).
+
 ## 🖼️ Item #8 — Brand logos section (mockup #2)
 
 Section title **"Explore Our Professional Brands"** — "Tap a brand to learn more and shop their collection."
