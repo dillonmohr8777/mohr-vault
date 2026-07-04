@@ -6,6 +6,10 @@
       "headers": {
         "X-Orgo-API-Key": "${ORGO_API_KEY}"
       }
+    },
+    "graphify": {
+      "command": "python3",
+      "args": ["-m", "graphify.serve", "graphify-out/graph.json"]
     }
   }
 }
