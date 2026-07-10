@@ -5,6 +5,13 @@
 
 ---
 
+## 2026-06-24 - Weekly Fresh Blends presentation system
+
+**Summary of vault changes**
+- Added weekly Fresh Blends presentation system: persistent memory file (`12_Presentations/_Presentation_System.md`), Marp template, inaugural scaffold deck (`2026-06-28`), Sunday 5 PM reminder GitHub Action, and a Recurring Routines section in `00_Memory_File.md`. Initiated from Slack #fresh-blends.
+
+---
+
 ## 2026-04-15 - Vault integrity sync
 
 **Summary of vault changes**

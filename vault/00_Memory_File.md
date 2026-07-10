@@ -286,3 +286,13 @@
 - Reusable learnings → This file, under "## Patterns and Learnings"
 - Transcripts → `09_Transcripts/` using transcript template
 - Errors/issues → Slack urgent alert + `01_Clients/[Client Name].md` under "## Notes"
+
+## 🔁 Recurring Routines
+
+### Weekly Fresh Blends Presentation
+- **Trigger:** Slack channel #fresh-blends. Dillon feeds info each week; Claude builds a presentation reflecting it.
+- **Cadence:** Every Sunday at 5:00 PM (US Eastern by default).
+- **Reminder:** GitHub Actions cron `.github/workflows/sunday-presentation-reminder.yml`.
+- **System of record:** `vault/12_Presentations/_Presentation_System.md` (read this before generating).
+- **Template:** `vault/12_Presentations/_Weekly_Presentation_Template.md` (Marp slides).
+- **Established:** 2026-06-24.
