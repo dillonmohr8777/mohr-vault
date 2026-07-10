@@ -51,6 +51,27 @@ Once the key is saved and the session is restarted, run the `orgo_doctor`
 tool first. It verifies auth source, API reachability, and latency, and tells
 apart auth failures from network issues.
 
+If the Orgo MCP is not loaded in the current session (see "Which session"
+below), run the same check over plain HTTP instead — no MCP tool required:
+
+```bash
+ORGO_API_KEY=sk_live_... ./scripts/orgo-doctor.sh
+```
+
+A healthy result looks like `{"ok":true, "auth":{"configured":true,
+"source":"http_header"}, "api":{"reachable":true,...}}`.
+
+## Which session? (Orgo only loads when mohr-vault is the session root)
+Claude Code loads the `.mcp.json` at the **root** of the session's working
+directory. Orgo therefore connects automatically only when this repo,
+`mohr-vault`, is the root — i.e. a **mohr-vault-only session**.
+
+In a multi-repo session (where `mohr-vault` is just one subfolder under the
+workspace root), `mohr-vault/.mcp.json` is not at the root, so the `orgo_*`
+tools are not auto-registered. The config and key are still correct — verify
+with `scripts/orgo-doctor.sh` above — but to use the Orgo tools natively
+(e.g. Squarespace-via-Orgo), start a session pointed at `mohr-vault` alone.
+
 ## Autonomy / safety toggles
 Runs full access by default. To tighten later (hosted endpoint accepts these as
 headers; local stdio accepts them as env vars):
