@@ -5,6 +5,20 @@
 
 ---
 
+## 2026-06-24 - Competitor Research Agent + Blissful Zen Spa scaffold
+
+**Summary of vault changes**
+- Created `11_Agents/Competitor Research Agent.md` - new agent for deep competitor intelligence (live pricing, packages/membership, booking-flow friction, reviews/ratings, GBP completeness, paid search presence).
+- Created `04_SOPs/Competitor Depth Research SOP.md` - repeatable per-competitor checklist covering the six dimensions, with source-URL + capture-date logging and a deliverable step.
+- Created Blissful Zen Spa client scaffold under `01_Clients/Blissful Zen Spa/`: client note, `Agent Memory.md`, `Ads/`, `Reports/`, and `SEO/Competitor Research.md` (the agent's Writes To destination, seeded with a summary matrix + per-competitor template).
+
+**Notable insights**
+- For the Blissful Zen Spa engagement (med/day spa, Atlantic City NJ near the Tropicana, target launch Summer 2026, existing domain zenspatropicana.com). Source: #blissful-zen-spa Slack channel.
+- Brand name is an OPEN DECISION: "Blissful Zen Spa" vs "Zen Spa at Tropicana" vs zenspatropicana.com. Not finalized - left for Dillon to decide; folder named "Blissful Zen Spa" as a working label only.
+- Competitor names are still TBD - the research list and per-competitor sections are placeholders for the agent to fill.
+
+---
+
 ## 2026-04-15 - Vault integrity sync
 
 **Summary of vault changes**
