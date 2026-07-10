@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sightings — Poison Plant Finder</title>
+  <meta name="description" content="Log where you've found dangerous plants and see them on a map." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="sightings">
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Your field log</span>
+      <h1 style="margin:.4rem 0 .6rem">Sightings</h1>
+      <p class="lede" style="margin-bottom:1.6rem">Save where you've spotted a dangerous plant — pin it on the map,
+        tag it, and keep notes so you (or whoever maintains the land) can find and deal with it later.</p>
+
+      <div class="sight-layout">
+        <form class="panel sight-form" id="sightForm">
+          <h3>Log a sighting</h3>
+          <label class="field-label">Plant
+            <select class="field field--block" id="sPlant"></select>
+          </label>
+          <label class="field-label">Category
+            <select class="field field--block" id="sCategory">
+              <option>My property</option>
+              <option>Public land / trail</option>
+              <option>Shared / neighbor</option>
+              <option>To remove</option>
+              <option>Just spotted</option>
+            </select>
+          </label>
+          <label class="field-label">Date seen
+            <input class="field field--block" type="date" id="sDate" />
+          </label>
+          <label class="field-label">Place (optional)
+            <input class="field field--block" type="text" id="sPlace" placeholder="e.g. back fence, north trailhead" />
+          </label>
+          <div class="loc-row">
+            <button type="button" class="btn btn--ghost" id="useLoc">📍 Use my location</button>
+            <span class="note" id="locNote">…or tap the map to drop a pin</span>
+          </div>
+          <label class="field-label">Notes
+            <textarea class="notebox" id="sNotes" placeholder="How much there is, condition, whether it needs removing…"></textarea>
+          </label>
+          <button class="btn btn--block" type="submit">Save sighting</button>
+          <p class="auth-error" id="sError" hidden></p>
+        </form>
+
+        <div class="sight-main">
+          <div id="map" class="map"></div>
+          <div class="toolbar" style="margin:1.2rem 0 .6rem">
+            <strong style="font-family:var(--display);font-size:1.3rem;color:var(--forest-deep)">Logged sightings</strong>
+            <span class="count" id="sCount"></span>
+          </div>
+          <div id="sList" class="sight-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/auth-ui.js"></script>
+  <script src="js/sightings.js"></script>
+</body>
+</html>
