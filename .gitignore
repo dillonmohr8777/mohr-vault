@@ -1,0 +1,12 @@
+# Dependencies are restored with `npm install` inside mcp-server/.
+node_modules/
+
+# Local secrets and environment files never belong in Git.
+.env
+.env.*
+!.env.example
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+*.log

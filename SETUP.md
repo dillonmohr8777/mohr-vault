@@ -27,7 +27,7 @@ A system that connects Claude Code to your Obsidian vault, turning it into an AI
 ### Step 3: Install the MCP Server
 
 ```bash
-cd obsidian-second-brain/mcp-server
+cd mohr-vault/mcp-server
 npm install
 ```
 
@@ -40,7 +40,7 @@ Add the MCP server to your Claude Code config. Edit your `~/.claude/settings.jso
   "mcpServers": {
     "obsidian-second-brain": {
       "command": "node",
-      "args": ["/FULL/PATH/TO/obsidian-second-brain/mcp-server/index.js"],
+      "args": ["/FULL/PATH/TO/mohr-vault/mcp-server/index.js"],
       "env": {
         "OBSIDIAN_API_URL": "https://127.0.0.1:27124",
         "OBSIDIAN_API_KEY": "YOUR_API_KEY_FROM_STEP_2"
